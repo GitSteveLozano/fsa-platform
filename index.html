@@ -9,360 +9,236 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/black.css">
 <style>
-/* ─── GLOBAL RESET & BASE ─────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg:       #080c14;
-  --surf:     #0f1422;
-  --card:     #161c2e;
-  --bord:     #222840;
-  --bord2:    #1a2035;
-  --txt:      #b8c4de;
-  --muted:    #4a5578;
-  --white:    #eef1ff;
-
-  /* Accent palette */
-  --red:      #f04060;
-  --amber:    #f5a524;
-  --amber-lt: #ffd285;
-  --teal:     #00c9a0;
-  --blue:     #4f8ef7;
-  --purple:   #8b7cf8;
-  --green:    #22d46e;
-
-  /* Section accent (overridden per slide) */
-  --accent:   var(--amber);
+  --bg:     #080c14;
+  --surf:   #0f1422;
+  --card:   #161c2e;
+  --bord:   #222840;
+  --bord2:  #1a2035;
+  --txt:    #b8c4de;
+  --muted:  #4a5578;
+  --white:  #eef1ff;
+  --red:    #f04060;
+  --amber:  #f5a524;
+  --teal:   #00c9a0;
+  --blue:   #4f8ef7;
+  --purple: #8b7cf8;
+  --green:  #22d46e;
+  --accent: var(--amber);
 }
 
-/* ─── REVEAL OVERRIDES ────────────────────────────────────── */
-.reveal {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg);
-  /* No font-size override. Reveal.js owns all scaling. */
-}
-/* Disable Reveal black theme's uppercase + letter-spacing on headings */
-.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5 {
-  text-transform: none;
-  letter-spacing: normal;
-  font-family: 'Inter', system-ui, sans-serif;
-}
+/* ── Let Reveal own all font sizing — only set family + colors ── */
+.reveal, .reveal * { font-family: 'Inter', system-ui, sans-serif !important; }
+.reveal { background: var(--bg); }
+
+/* ── Section layout ── */
 .reveal .slides section {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  box-sizing: border-box;
-  overflow: hidden;
-  text-align: left;
+  display: flex; flex-direction: column;
+  width: 100%; height: 100%;
+  padding: 0; box-sizing: border-box;
+  overflow: hidden; text-align: left;
 }
-
-/* ─── SLIDE CHROME: accent bar + inner layout ─────────────── */
 .slide-inner {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
+  display: flex; flex-direction: column;
+  width: 100%; height: 100%;
   padding: 4% 7% 3%;
 }
-/* Top accent line */
+
+/* ── Accent bar ── */
 .accent-bar {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
 }
-/* Left accent strip */
-.accent-strip {
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 3px;
-  background: var(--accent);
-  opacity: 0.6;
-}
 
-/* ─── TYPOGRAPHY ──────────────────────────────────────────── */
+/* ── Eyebrow label ── */
 .eyebrow {
-  font-size: 0.45em;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 0.4em !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--accent) !important;
+  margin-bottom: 6px !important;
+  display: flex; align-items: center; gap: 8px;
+  line-height: 1 !important;
 }
 .eyebrow::after {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-  opacity: 0.5;
+  content: ''; display: block;
+  width: 24px; height: 1px;
+  background: var(--accent); opacity: 0.4;
 }
 
+/* ── Slide title (h2 equivalent) ── */
 .slide-title {
-  font-size: 0.75em;
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--white);
-  letter-spacing: -0.02em;
+  font-size: 0.7em !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  color: var(--white) !important;
+  letter-spacing: -0.02em !important;
   text-transform: none !important;
-  margin-bottom: 8px;
-  max-width: 96%;
+  margin: 0 0 10px !important;
+  max-width: 95%;
 }
 .slide-title .hl { color: var(--accent); }
 
 .slide-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; gap: 8px;
 }
 
-.reveal p  { font-size: 0.5em; color: var(--txt); line-height: 1.55; margin: 0; }
-.reveal li { font-size: 0.5em; color: var(--txt); line-height: 1.55; margin-bottom: 4px; }
-.reveal ul { padding-left: 1.1em; }
-.reveal strong { color: var(--white); }
+/* ── Grids ── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 
-/* ─── GRID ────────────────────────────────────────────────── */
-.g2  { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.g3  { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-.g4  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.g21 { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
-
-/* ─── CARDS ───────────────────────────────────────────────── */
+/* ── Cards ── */
 .card {
-  background: var(--card);
-  border: 1px solid var(--bord);
-  border-radius: 8px;
-  padding: 10px 14px;
+  background: var(--card); border: 1px solid var(--bord);
+  border-radius: 8px; padding: 10px 14px;
 }
-.card .card-label {
-  font-size: 0.38em;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.card-label {
+  font-size: 0.35em !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  margin-bottom: 5px !important;
+  display: flex; align-items: center; gap: 5px;
+  line-height: 1 !important;
 }
-.card h4 {
-  font-size: 0.48em;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 4px;
-  letter-spacing: -0.01em;
-}
-.card p  { font-size: 0.44em; }
-.card li { font-size: 0.44em; }
+.card p, .card li { font-size: 0.42em !important; line-height: 1.5 !important; margin: 0 0 3px !important; }
+.card ul { padding-left: 1em; }
+.card-red    { border-color: rgba(240,64,96,.3);  background: rgba(240,64,96,.07); }
+.card-amber  { border-color: rgba(245,165,36,.3); background: rgba(245,165,36,.07); }
+.card-blue   { border-color: rgba(79,142,247,.3); background: rgba(79,142,247,.07); }
+.card-teal   { border-color: rgba(0,201,160,.3);  background: rgba(0,201,160,.07); }
+.card-purple { border-color: rgba(139,124,248,.3);background: rgba(139,124,248,.07);}
+.card-green  { border-color: rgba(34,212,110,.3); background: rgba(34,212,110,.07); }
 
-.card-red    { border-color: rgba(240,64,96,.25);  background: rgba(240,64,96,.06); }
-.card-amber  { border-color: rgba(245,165,36,.25); background: rgba(245,165,36,.06); }
-.card-blue   { border-color: rgba(79,142,247,.25); background: rgba(79,142,247,.06); }
-.card-teal   { border-color: rgba(0,201,160,.25);  background: rgba(0,201,160,.06); }
-.card-purple { border-color: rgba(139,124,248,.25);background: rgba(139,124,248,.06);}
-.card-green  { border-color: rgba(34,212,110,.25); background: rgba(34,212,110,.06); }
-
-/* ─── STAT BLOCKS ─────────────────────────────────────────── */
-.stat-row { display: flex; gap: 40px; align-items: center; }
+/* ── Stats ── */
+.stat-row { display: flex; gap: 40px; justify-content: center; }
 .stat { text-align: center; }
-.stat .num {
-  font-size: 1.4em;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-.stat .sub { font-size: 0.38em; color: var(--muted); line-height: 1.4; margin-top: 4px; }
+.stat .num { font-size: 1.3em !important; font-weight: 900 !important; line-height: 1 !important; letter-spacing: -0.03em !important; }
+.stat .sub { font-size: 0.35em !important; color: var(--muted) !important; margin-top: 4px; line-height: 1.4 !important; }
 
-/* ─── FLOW ────────────────────────────────────────────────── */
-.flow {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  width: 100%;
-}
+/* ── Flow diagram ── */
+.flow { display: flex; align-items: center; width: 100%; }
 .flow-node {
-  flex: 1;
-  text-align: center;
-  padding: 8px 4px;
-  border-radius: 6px;
-  font-size: 0.38em;
-  color: var(--txt);
-  line-height: 1.35;
-  border: 1px solid var(--bord);
+  flex: 1; text-align: center; padding: 8px 4px;
+  border-radius: 6px; border: 1px solid var(--bord);
   background: var(--card);
+  font-size: 0.35em !important; line-height: 1.35 !important;
+  color: var(--txt) !important;
 }
-.flow-node .fn-icon { font-size: 1.2em; display: block; margin-bottom: 2px; }
-.flow-node .fn-sub  { font-size: 0.8em; color: var(--muted); }
-.flow-node.bad  { border-color: rgba(240,64,96,.4);  background: rgba(240,64,96,.08); }
-.flow-node.good { border-color: rgba(34,212,110,.4); background: rgba(34,212,110,.08); }
-.flow-node.pivot{ border-color: rgba(245,165,36,.4); background: rgba(245,165,36,.08); }
-.flow-arrow { flex-shrink:0; color:var(--muted); padding: 0 3px; font-size: 0.55em; }
+.flow-node .fn-icon { font-size: 1.3em !important; display: block; margin-bottom: 2px; }
+.flow-node .fn-sub  { font-size: 0.8em !important; color: var(--muted) !important; }
+.flow-node.bad   { border-color: rgba(240,64,96,.4);  background: rgba(240,64,96,.08); }
+.flow-node.good  { border-color: rgba(34,212,110,.4); background: rgba(34,212,110,.08); }
+.flow-node.pivot { border-color: rgba(245,165,36,.4); background: rgba(245,165,36,.08); }
+.flow-arrow { flex-shrink: 0; color: var(--muted); padding: 0 3px; font-size: 0.5em !important; }
 
-/* ─── TABLE ───────────────────────────────────────────────── */
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.44em; }
+/* ── Tables ── */
+.reveal table { width: 100%; border-collapse: collapse; }
+.reveal table, .reveal td, .reveal th { font-size: 0.42em !important; }
 .reveal th {
-  background: var(--surf);
-  color: var(--muted);
-  padding: 6px 10px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 0.78em;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  background: var(--surf); color: var(--muted) !important;
+  padding: 6px 10px; text-align: left; font-weight: 600 !important;
+  text-transform: uppercase !important; letter-spacing: 0.04em !important;
   border-bottom: 1px solid var(--bord);
 }
-.reveal td { padding: 6px 10px; border-bottom: 1px solid var(--bord2); color: var(--txt); }
+.reveal td { padding: 6px 10px; border-bottom: 1px solid var(--bord2); color: var(--txt) !important; }
 .reveal tr:last-child td { border-bottom: none; }
-.c-red    { color: var(--red);    font-weight: 600; }
-.c-amber  { color: var(--amber);  font-weight: 600; }
-.c-green  { color: var(--green);  font-weight: 600; }
-.c-blue   { color: var(--blue);   font-weight: 600; }
-.c-muted  { color: var(--muted); }
+.c-red   { color: var(--red)   !important; font-weight: 700 !important; }
+.c-amber { color: var(--amber) !important; font-weight: 700 !important; }
+.c-green { color: var(--green) !important; font-weight: 700 !important; }
+.c-blue  { color: var(--blue)  !important; font-weight: 700 !important; }
+.c-muted { color: var(--muted) !important; }
 
-/* ─── QUOTE ───────────────────────────────────────────────── */
+/* ── Blockquote ── */
 .blockquote {
-  border-left: 2px solid var(--amber);
-  padding: 8px 14px;
-  background: rgba(245,165,36,.05);
-  border-radius: 0 6px 6px 0;
-  font-style: italic;
-  color: var(--txt);
-  font-size: 0.46em;
-  line-height: 1.6;
+  border-left: 2px solid var(--amber); padding: 8px 14px;
+  background: rgba(245,165,36,.05); border-radius: 0 6px 6px 0;
+  font-style: italic; color: var(--txt) !important;
+  font-size: 0.42em !important; line-height: 1.6 !important;
 }
 .blockquote cite {
-  font-style: normal;
-  font-size: 0.85em;
-  color: var(--muted);
-  display: block;
-  margin-top: 5px;
+  font-style: normal; font-size: 0.85em !important;
+  color: var(--muted) !important; display: block; margin-top: 5px;
 }
 
-/* ─── PILL ────────────────────────────────────────────────── */
-.pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
-.pill {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 100px;
-  font-size: 0.38em;
-  font-weight: 600;
-  background: var(--surf);
-  color: var(--muted);
-  border: 1px solid var(--bord);
-}
-.p-red    { background:rgba(240,64,96,.12);  color:var(--red);   border-color:rgba(240,64,96,.3); }
-.p-amber  { background:rgba(245,165,36,.12); color:var(--amber); border-color:rgba(245,165,36,.3); }
-.p-green  { background:rgba(34,212,110,.12); color:var(--green); border-color:rgba(34,212,110,.3); }
-.p-blue   { background:rgba(79,142,247,.12); color:var(--blue);  border-color:rgba(79,142,247,.3); }
-.p-purple { background:rgba(139,124,248,.12);color:var(--purple);border-color:rgba(139,124,248,.3);}
+/* ── Pills ── */
+.pills { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+.pill  { display: inline-block; padding: 2px 7px; border-radius: 100px;
+         font-size: 0.34em !important; font-weight: 600 !important;
+         background: var(--surf); color: var(--muted) !important; border: 1px solid var(--bord); }
+.p-red    { background:rgba(240,64,96,.12);  color:var(--red)    !important; border-color:rgba(240,64,96,.3); }
+.p-amber  { background:rgba(245,165,36,.12); color:var(--amber)  !important; border-color:rgba(245,165,36,.3); }
+.p-green  { background:rgba(34,212,110,.12); color:var(--green)  !important; border-color:rgba(34,212,110,.3); }
+.p-blue   { background:rgba(79,142,247,.12); color:var(--blue)   !important; border-color:rgba(79,142,247,.3); }
+.p-purple { background:rgba(139,124,248,.12);color:var(--purple) !important; border-color:rgba(139,124,248,.3);}
 
-/* ─── PERSONA ─────────────────────────────────────────────── */
+/* ── Personas ── */
 .persona {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  background: var(--card);
-  border: 1px solid var(--bord);
-  border-radius: 8px;
-  padding: 10px 14px;
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--card); border: 1px solid var(--bord);
+  border-radius: 8px; padding: 10px 14px;
 }
-.persona .avi { font-size: 0.7em; flex-shrink: 0; line-height: 1; }
-.persona .pname { font-size: 0.42em; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.persona .pjtbd { font-size: 0.38em; color: var(--muted); font-style: italic; line-height: 1.5; }
+.persona .avi   { font-size: 0.65em !important; flex-shrink: 0; line-height: 1; }
+.persona .pname { font-size: 0.4em !important; font-weight: 700 !important; color: var(--white) !important; margin-bottom: 3px; }
+.persona .pjtbd { font-size: 0.36em !important; color: var(--muted) !important; font-style: italic; line-height: 1.5 !important; }
 
-/* ─── ROADMAP ─────────────────────────────────────────────── */
-.rmrow {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--bord2);
-}
+/* ── Roadmap ── */
+.rmrow { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--bord2); }
 .rmrow:last-child { border-bottom: none; }
-.rmphase { min-width: 60px; font-size: 0.4em; font-weight: 700; color: var(--accent); padding-top: 2px; }
-.rmtitle { font-size: 0.48em; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.rmdesc  { font-size: 0.42em; color: var(--muted); line-height: 1.5; }
+.rmphase { min-width: 58px; font-size: 0.38em !important; font-weight: 700 !important; color: var(--accent) !important; padding-top: 2px; }
+.rmtitle { font-size: 0.44em !important; font-weight: 700 !important; color: var(--white) !important; margin-bottom: 2px; }
+.rmdesc  { font-size: 0.38em !important; color: var(--muted) !important; line-height: 1.5 !important; }
 
-/* ─── BADGE ───────────────────────────────────────────────── */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--surf);
-  border: 1px solid var(--bord);
-  border-radius: 100px;
-  padding: 4px 14px;
-  font-size: 0.42em;
-  color: var(--muted);
-  margin-bottom: 10px;
+/* ── Code block ── */
+.code-block {
+  background: #06080f; border: 1px solid var(--bord); border-radius: 6px;
+  padding: 10px 12px; font-family: 'SF Mono', 'Fira Code', monospace !important;
+  font-size: 0.38em !important; line-height: 1.5 !important; color: #7c8fbc; overflow: auto;
 }
+.code-block .k  { color: #7c6ff7; }
+.code-block .s  { color: #f06680; }
+.code-block .n  { color: #4fc3f7; }
+.code-block .c  { color: #3a4560; }
+.code-block .hl { color: var(--amber); }
 
-/* ─── COVER SPECIFIC ──────────────────────────────────────── */
+/* ── Cover ── */
 .cover-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  text-align: center;
-  padding: 32px 48px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 100%; text-align: center; padding: 5% 8%;
   position: relative;
 }
-.cover-wrap .cover-title {
-  font-size: 0.85em;
-  font-weight: 900;
-  line-height: 1.2;
-  color: var(--white);
-  letter-spacing: -0.02em;
-  text-transform: none !important;
-  max-width: 14em;
-  margin-bottom: 10px;
-}
 .cover-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(79,142,247,.08) 0%, transparent 70%);
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(79,142,247,.07) 0%, transparent 70%);
   pointer-events: none;
 }
+.cover-title {
+  font-size: 0.9em !important; font-weight: 900 !important;
+  line-height: 1.15 !important; color: var(--white) !important;
+  letter-spacing: -0.02em !important; text-transform: none !important;
+  max-width: 12em; margin-bottom: 10px;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--surf); border: 1px solid var(--bord);
+  border-radius: 100px; padding: 4px 14px;
+  font-size: 0.38em !important; color: var(--muted) !important; margin-bottom: 12px;
+}
 
-/* ─── MISC ────────────────────────────────────────────────── */
+/* ── Misc ── */
 .divider { width: 32px; height: 2px; border-radius: 2px; background: var(--accent); margin: 6px 0 10px; }
 .reveal .progress span { background: var(--amber); }
-.reveal .controls { color: var(--muted); }
-.reveal .slide-number { color: var(--muted); font-size: 0.45em; }
-
-/* ─── CODE ────────────────────────────────────────────────── */
-.code-block {
-  background: #06080f;
-  border: 1px solid var(--bord);
-  border-radius: 6px;
-  padding: 10px 12px;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.4em;
-  line-height: 1.55;
-  color: #7c8fbc;
-  overflow: auto;
-}
-.code-block .k { color: #7c6ff7; } /* keyword/key */
-.code-block .s { color: #f06680; } /* string */
-.code-block .n { color: #4fc3f7; } /* number/value */
-.code-block .c { color: #3a4560; } /* comment */
-.code-block .hl{ color: #f5a524; } /* highlight */
+.reveal .slide-number  { color: var(--muted) !important; }
 </style>
 </head>
 <body>
 <div class="reveal">
 <div class="slides">
 
-<!-- ════════════════════════════════════════════════════════
-     01 · COVER
-════════════════════════════════════════════════════════ -->
+<!-- 01 COVER -->
 <section data-background-color="#080c14">
   <div class="cover-wrap">
     <div class="cover-bg"></div>
@@ -372,31 +248,19 @@
       <span style="color:var(--amber)">$120 Billion</span> Is Broken.<br>
       Here's the Fix.
     </h1>
-    <p style="color:var(--muted); max-width:480px; margin:0 auto 32px; font-size:0.78em;">
+    <p style="color:var(--muted); max-width:480px; margin:0 auto 28px; font-size:0.4em !important;">
       A Technical PM vision for FSA's platform infrastructure — from today's batch-driven failures to an agentic, API-first future.
     </p>
-    <div class="stat-row" style="justify-content:center; gap:48px;">
-      <div class="stat">
-        <div class="num" style="color:var(--red)">17M</div>
-        <div class="sub">FAFSA applicants<br>per year</div>
-      </div>
-      <div class="stat">
-        <div class="num" style="color:var(--amber)">$120B</div>
-        <div class="sub">federal aid<br>processed annually</div>
-      </div>
-      <div class="stat">
-        <div class="num" style="color:var(--blue)">30%</div>
-        <div class="sub">of forms had<br>errors in 2024</div>
-      </div>
+    <div class="stat-row">
+      <div class="stat"><div class="num" style="color:var(--red)">17M</div><div class="sub">FAFSA applicants<br>per year</div></div>
+      <div class="stat"><div class="num" style="color:var(--amber)">$120B</div><div class="sub">federal aid<br>processed annually</div></div>
+      <div class="stat"><div class="num" style="color:var(--blue)">30%</div><div class="sub">of forms had<br>errors in 2024</div></div>
     </div>
-    <p style="font-size:0.5em; color:var(--muted); margin-top:28px;">← → to navigate · F for fullscreen · S for speaker notes</p>
+    <p style="font-size:0.3em !important; color:var(--muted); margin-top:20px;">← → to navigate · F for fullscreen · S for speaker notes</p>
   </div>
-  <aside class="notes">Every failure in this system has a name — a student who didn't get their aid offer, a family that missed an enrollment deadline. This is not abstract platform work.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     02 · THE PROBLEM — GAO FINDINGS
-════════════════════════════════════════════════════════ -->
+<!-- 02 GAO FINDINGS -->
 <section data-background-color="#080c14" style="--accent:var(--red)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
@@ -408,9 +272,9 @@
           <div class="card-label" style="color:var(--red)">🔴 FAFSA Processing System</div>
           <ul>
             <li><strong>9 of 25</strong> requirements never deployed</li>
-            <li><strong>30%</strong> of forms had processing errors in 2024</li>
+            <li><strong>30%</strong> of forms had errors in 2024</li>
             <li>SAI formula omitted asset data — <strong>5M wrong aid offers</strong></li>
-            <li>By May 2025 FSA stopped tracking the missing requirements entirely</li>
+            <li>By May 2025 FSA stopped tracking the missing requirements</li>
           </ul>
         </div>
         <div class="card card-red">
@@ -418,8 +282,8 @@
           <ul>
             <li>Test cases had <strong>no traceability</strong> to requirements</li>
             <li>No user testing plan for future updates</li>
-            <li>Contractor performance never independently validated</li>
-            <li>Key staff lacked certifications for the methodology used</li>
+            <li>Contractor performance never validated</li>
+            <li>Key staff lacked required certifications</li>
           </ul>
         </div>
       </div>
@@ -429,12 +293,9 @@
       </div>
     </div>
   </div>
-  <aside class="notes">These are documented failures, not hypothetical risks. The 2025 report found FSA couldn't tell auditors which requirements had been deployed.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     03 · ROOT CAUSE
-════════════════════════════════════════════════════════ -->
+<!-- 03 ROOT CAUSE -->
 <section data-background-color="#080c14" style="--accent:var(--red)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
@@ -456,31 +317,26 @@
         <div class="flow-arrow">→</div>
         <div class="flow-node bad"><span class="fn-icon">🏫</span>Aid packaged<div class="fn-sub">weeks manual</div></div>
       </div>
-      <p style="color:var(--red); font-weight:600; font-size:0.72em; text-align:center; margin:0">
-        3.5M students unacknowledged · No status at any step · Total: 4–12 weeks
-      </p>
+      <p style="color:var(--red) !important; font-weight:600; text-align:center; font-size:0.38em !important;">3.5M students unacknowledged · No status at any step · Total: 4–12 weeks</p>
       <div class="g3">
         <div class="card">
           <div class="card-label" style="color:var(--red)">No parallelism</div>
-          <p>Every step blocks the next. IRS and SSA could run simultaneously — they don't. Failures cascade silently.</p>
+          <p>Every step blocks the next. IRS and SSA could run simultaneously — they don't.</p>
         </div>
         <div class="card">
           <div class="card-label" style="color:var(--red)">No observability</div>
-          <p>IRS, SSA, and DHS are black boxes. Engineers only discover failures when students complain.</p>
+          <p>IRS, SSA, DHS are black boxes. Failures only known when students complain.</p>
         </div>
         <div class="card">
           <div class="card-label" style="color:var(--red)">No feedback loop</div>
-          <p>Students and FAAs are equally blind. No status, no ETA, no explanation when something breaks.</p>
+          <p>3.5M forms unacknowledged for weeks. No status, no ETA, no explanation.</p>
         </div>
       </div>
     </div>
   </div>
-  <aside class="notes">This is the architectural root cause — not a UI problem, not a policy problem. Batch processing for what should be a real-time event-driven system.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     04 · PERSONAS
-════════════════════════════════════════════════════════ -->
+<!-- 04 PERSONAS -->
 <section data-background-color="#080c14" style="--accent:var(--purple)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
@@ -500,15 +356,15 @@
           <div class="avi">🏫</div>
           <div>
             <div class="pname">David — Financial Aid Administrator</div>
-            <div class="pjtbd">"Get me ISIRs before my enrollment deadline — and tell me when FSA is broken."</div>
-            <div class="pills"><span class="pill p-red">Months-delayed ISIRs</span><span class="pill p-red">Can't correct errors</span></div>
+            <div class="pjtbd">"Get me ISIRs before enrollment deadline — tell me when FSA is broken."</div>
+            <div class="pills"><span class="pill p-red">Delayed ISIRs</span><span class="pill p-red">Can't correct errors</span></div>
           </div>
         </div>
         <div class="persona">
           <div class="avi">💻</div>
           <div>
             <div class="pname">Jordan — Platform Engineer (contractor)</div>
-            <div class="pjtbd">"Give me a spec I can build to and tests I can trace — so I know what 'done' means."</div>
+            <div class="pjtbd">"Give me a spec I can build to so I know what 'done' means."</div>
             <div class="pills"><span class="pill p-red">No traceability</span><span class="pill p-red">Unclear ownership</span></div>
           </div>
         </div>
@@ -516,29 +372,26 @@
           <div class="avi">🎯</div>
           <div>
             <div class="pname">Technical PM — The role</div>
-            <div class="pjtbd">"Drive decisions that improve outcomes for 17M students — without authority over the teams that execute them."</div>
-            <div class="pills"><span class="pill p-purple">No direct reports</span><span class="pill p-purple">Cross-agency</span><span class="pill p-amber">$120B stakes</span></div>
+            <div class="pjtbd">"Drive decisions for 17M students — without authority over the teams that execute."</div>
+            <div class="pills"><span class="pill p-purple">No direct reports</span><span class="pill p-purple">Cross-agency</span><span class="pill p-amber">$120B</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <aside class="notes">The Technical PM doesn't build for students directly — they build the platform engineers use to serve students. Student outcomes are the north star for every prioritization call.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     05 · THE VISION
-════════════════════════════════════════════════════════ -->
+<!-- 05 THE VISION -->
 <section data-background-color="#080c14" style="--accent:var(--teal)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
     <div class="eyebrow">The Vision</div>
-    <div class="slide-title">Parallel agents replace batch jobs — same-day aid instead of <span class="hl" style="color:var(--teal)">weeks of waiting.</span></div>
+    <div class="slide-title">Parallel agents replace batch jobs — <span class="hl" style="color:var(--teal)">same-day aid</span> instead of weeks of waiting.</div>
     <div class="slide-body">
       <div class="flow">
         <div class="flow-node good"><span class="fn-icon">📝</span>Submit FAFSA<div class="fn-sub">event fires</div></div>
         <div class="flow-arrow">→</div>
-        <div class="flow-node pivot"><span class="fn-icon">🤖</span>Orchestrator<div class="fn-sub">parallel dispatch</div></div>
+        <div class="flow-node pivot"><span class="fn-icon">🤖</span>Orchestrator<div class="fn-sub">parallel</div></div>
         <div class="flow-arrow">→</div>
         <div class="flow-node good"><span class="fn-icon">✅</span>ISIR ready<div class="fn-sub">minutes</div></div>
         <div class="flow-arrow">→</div>
@@ -548,9 +401,7 @@
         <div class="flow-arrow">→</div>
         <div class="flow-node good"><span class="fn-icon">🎓</span>Aid decision<div class="fn-sub">same day</div></div>
       </div>
-      <p style="color:var(--teal); font-weight:600; font-size:0.72em; text-align:center; margin:0">
-        Human approval at the final step is legally required — the PM designs where humans stay in the loop
-      </p>
+      <p style="color:var(--teal) !important; font-weight:600; text-align:center; font-size:0.38em !important;">Human approval at final step is legally required — PM designs where humans stay in the loop</p>
       <div class="g3">
         <div class="card card-teal">
           <div class="card-label" style="color:var(--teal)">🏦 IRS Income Agent</div>
@@ -558,21 +409,18 @@
         </div>
         <div class="card card-teal">
           <div class="card-label" style="color:var(--teal)">🔍 SSA Identity Agent</div>
-          <p>3-day wait → seconds. Parallel to IRS. Confidence score. <strong>SLA: &lt;1s · ≥0.85 auto-approve</strong></p>
+          <p>3-day wait → seconds. Parallel to IRS. Confidence score. <strong>≥0.85 auto-approve</strong></p>
         </div>
         <div class="card card-teal">
           <div class="card-label" style="color:var(--teal)">📊 Eligibility Agent</div>
-          <p>SAI calculation on validated inputs. Versioned formula. Every call logged for FERPA. <strong>Auditable.</strong></p>
+          <p>SAI on validated inputs. Versioned formula. Every call logged. <strong>Auditable.</strong></p>
         </div>
       </div>
     </div>
   </div>
-  <aside class="notes">The architectural shift: FAFSA submission becomes an event, not a batch job trigger. Agents run in parallel. Human approves the output. This is how modern fintech handles similar flows at this scale.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     06 · AGENT ARCHITECTURE
-════════════════════════════════════════════════════════ -->
+<!-- 06 AGENT ARCHITECTURE -->
 <section data-background-color="#080c14" style="--accent:var(--amber)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
@@ -580,80 +428,77 @@
     <div class="slide-title">Each federal integration becomes an <span class="hl">MCP server</span> with a defined contract.</div>
     <div class="slide-body">
       <div class="g2">
-        <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
           <div class="card card-amber">
             <div class="card-label" style="color:var(--amber)">🤖 Orchestrator Agent</div>
             <p>FAFSA event → parallel dispatch → collect results → assemble ISIR → route to FAA with audit package.</p>
-            <p style="color:var(--amber); margin-top:6px; font-size:0.68em;"><strong>PM owns:</strong> state machine, timeouts, retry logic, escalation paths</p>
+            <p style="color:var(--amber) !important; margin-top:4px;"><strong>PM owns:</strong> state machine, timeouts, retry logic</p>
           </div>
           <div class="card">
             <div class="card-label" style="color:var(--muted)">📋 Audit Agent</div>
-            <p>Input, output, timestamp, confidence — all logged immutably. FERPA + GAO defensibility. Non-negotiable.</p>
+            <p>Input, output, timestamp, confidence logged immutably. FERPA + GAO defensibility.</p>
           </div>
           <div class="card">
             <div class="card-label" style="color:var(--muted)">🔔 Notification Agent</div>
-            <p>Real-time status to students and FAAs. Eliminates the 3.5M unacknowledged forms problem.</p>
+            <p>Real-time status to students + FAAs. Eliminates 3.5M unacknowledged forms.</p>
           </div>
         </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
           <div class="card card-blue">
             <div class="card-label" style="color:var(--blue)">🏦 IRS MCP Server</div>
-            <p>In: SSN + consent_token · Out: FTI validated schema<br><strong>SLA &lt;2s · Fallback: manual review queue</strong></p>
+            <p>In: SSN + consent_token · Out: FTI validated · <strong>SLA &lt;2s · Fallback: manual queue</strong></p>
           </div>
           <div class="card card-blue">
             <div class="card-label" style="color:var(--blue)">🔍 SSA MCP Server</div>
-            <p>In: Name + DOB + SSN · Out: confidence 0–1<br><strong>SLA &lt;1s · ≥0.85 auto-approve</strong></p>
+            <p>In: Name + DOB + SSN · Out: confidence 0–1 · <strong>SLA &lt;1s · ≥0.85 auto-approve</strong></p>
           </div>
           <div class="card card-blue">
             <div class="card-label" style="color:var(--blue)">🏛️ DHS MCP Server</div>
-            <p>In: Citizenship + residency · Out: eligibility flags<br><strong>SLA &lt;3s · Edge cases → manual review</strong></p>
+            <p>In: Citizenship + residency · Out: eligibility flags · <strong>SLA &lt;3s</strong></p>
           </div>
           <div class="card card-green">
-            <div class="card-label" style="color:var(--green)">📊 Eligibility Calculation</div>
-            <p>In: Validated IRS + SSA · Out: SAI + Pell + package<br><strong>Formula: versioned, tested, auditable</strong></p>
+            <div class="card-label" style="color:var(--green)">📊 Eligibility Calc</div>
+            <p>In: Validated IRS + SSA · Out: SAI + Pell · <strong>Versioned, tested, auditable</strong></p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <aside class="notes">MCP gives each integration a standard envelope: defined inputs, validated outputs, error codes, SLA requirements. The PM writes the contract spec. Engineers implement it. Auditors review it.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     07 · API CONTRACT
-════════════════════════════════════════════════════════ -->
+<!-- 07 API CONTRACT -->
 <section data-background-color="#080c14" style="--accent:var(--purple)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
     <div class="eyebrow">Technical PM Deliverable</div>
-    <div class="slide-title">The API contract is what the PM <span class="hl" style="color:var(--purple)">actually produces</span> — spec, SLA, error handling, audit trail.</div>
+    <div class="slide-title">The API contract is what the PM <span class="hl" style="color:var(--purple)">actually produces</span> — spec, SLA, errors, audit.</div>
     <div class="slide-body">
       <div class="g2">
         <div class="code-block">
 <span class="c">// IRS FTI Verification Contract</span>
 <span class="k">"endpoint"</span>: <span class="s">"POST /v1/irs/fti-verify"</span>,
 <span class="k">"input"</span>: {
-  <span class="k">"ssn"</span>:           <span class="s">"string (encrypted)"</span>,
+  <span class="k">"ssn"</span>: <span class="s">"string (encrypted)"</span>,
   <span class="k">"consent_token"</span>: <span class="s">"expires 24h"</span>
 },
 <span class="k">"output"</span>: {
-  <span class="k">"agi"</span>:          <span class="s">"integer | null"</span>,
-  <span class="k">"tax_status"</span>:   <span class="s">"filed|unfiled|nonfiler"</span>,
-  <span class="hl">"asset_value"</span>:  <span class="s">"integer | null"</span>, <span class="c">← missing in 2024</span>
-  <span class="k">"confidence"</span>:   <span class="n">0.0–1.0</span>,
-  <span class="k">"audit_id"</span>:     <span class="s">"uuid"</span>
+  <span class="k">"agi"</span>: <span class="s">"integer | null"</span>,
+  <span class="k">"tax_status"</span>: <span class="s">"filed|unfiled|nonfiler"</span>,
+  <span class="hl">"asset_value"</span>: <span class="s">"integer | null"</span>, <span class="c">← missing 2024</span>
+  <span class="k">"confidence"</span>: <span class="n">0.0–1.0</span>,
+  <span class="k">"audit_id"</span>: <span class="s">"uuid"</span>
 },
-<span class="k">"sla"</span>:     { <span class="k">"p50"</span>: <span class="s">"800ms"</span>, <span class="k">"p99"</span>: <span class="s">"2s"</span> },
+<span class="k">"sla"</span>: { <span class="k">"p50"</span>: <span class="s">"800ms"</span>, <span class="k">"p99"</span>: <span class="s">"2s"</span> },
 <span class="k">"fallback"</span>: <span class="s">"queue_manual_review"</span>
         </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
           <div class="card card-purple">
             <div class="card-label" style="color:var(--purple)">Why this is the PM's job</div>
             <ul>
               <li>Engineers need precise I/O to build without guessing</li>
-              <li>Policy teams verify compliance is in the schema</li>
-              <li><code style="font-size:0.85em;color:#93c5fd">audit_id</code> satisfies FERPA without extra tooling</li>
-              <li><code style="font-size:0.85em;color:#93c5fd">fallback</code> prevents cascade when IRS is down</li>
+              <li>Policy teams verify compliance in the schema</li>
+              <li><code style="font-size:0.9em">audit_id</code> satisfies FERPA without extra tooling</li>
+              <li><code style="font-size:0.9em">fallback</code> prevents cascade when IRS is down</li>
             </ul>
           </div>
           <div class="card">
@@ -665,18 +510,14 @@
               <tr><td>Consent expiry handled</td><td>TC-003</td><td class="c-amber">⚠</td></tr>
               <tr><td>IRS downtime fallback</td><td>TC-004</td><td class="c-red">✗ Missing</td></tr>
             </table>
-            <p style="color:var(--red); font-size:0.65em; margin-top:7px;">TC-004 is the exact gap GAO flagged. The PM finds and closes it.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <aside class="notes">The asset_value field being missing wasn't an engineering failure — it was a spec failure. Nobody wrote a requirement that said "asset data must be included." This is what a Technical PM prevents.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     08 · TECH DEBT PRIORITIZATION
-════════════════════════════════════════════════════════ -->
+<!-- 08 TECH DEBT -->
 <section data-background-color="#080c14" style="--accent:var(--amber)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
@@ -684,70 +525,25 @@
     <div class="slide-title">Every decision is measured in <span class="hl">students affected</span> — not story points.</div>
     <div class="slide-body">
       <table>
-        <tr>
-          <th>Issue</th>
-          <th>Students Affected</th>
-          <th>Risk if Ignored</th>
-          <th>Effort</th>
-          <th>Priority</th>
-        </tr>
-        <tr>
-          <td>SAI formula — missing asset data</td>
-          <td class="c-red">~5M dependent students</td>
-          <td class="c-red">Wrong aid offers</td>
-          <td>Medium</td>
-          <td class="c-red" style="font-weight:800">P0</td>
-        </tr>
-        <tr>
-          <td>SSA verification latency (3 days)</td>
-          <td class="c-red">~17M all applicants</td>
-          <td class="c-amber">Enrollment deadline misses</td>
-          <td>High</td>
-          <td class="c-red" style="font-weight:800">P0</td>
-        </tr>
-        <tr>
-          <td>9 undeployed FPS requirements</td>
-          <td class="c-amber">~3M needing correction</td>
-          <td class="c-red">FAAs can't help students</td>
-          <td>High</td>
-          <td class="c-amber" style="font-weight:800">P1</td>
-        </tr>
-        <tr>
-          <td>Test case traceability gaps</td>
-          <td class="c-amber">All users (silent bugs)</td>
-          <td class="c-red">Undetectable regressions</td>
-          <td>Low</td>
-          <td class="c-amber" style="font-weight:800">P1</td>
-        </tr>
-        <tr>
-          <td>IRS integration error handling</td>
-          <td class="c-muted">~500K edge cases/yr</td>
-          <td class="c-amber">No fallback when IRS fails</td>
-          <td>Medium</td>
-          <td class="c-green" style="font-weight:800">P2</td>
-        </tr>
-        <tr>
-          <td>DORA metrics instrumentation</td>
-          <td class="c-muted">All teams (velocity)</td>
-          <td class="c-amber">Can't measure improvement</td>
-          <td>Low</td>
-          <td class="c-green" style="font-weight:800">P2</td>
-        </tr>
+        <tr><th>Issue</th><th>Students Affected</th><th>Risk</th><th>Effort</th><th>Priority</th></tr>
+        <tr><td>SAI formula — missing asset data</td><td class="c-red">~5M dependent</td><td class="c-red">Wrong aid offers</td><td>Medium</td><td class="c-red">P0</td></tr>
+        <tr><td>SSA verification latency (3 days)</td><td class="c-red">~17M all applicants</td><td class="c-amber">Enrollment misses</td><td>High</td><td class="c-red">P0</td></tr>
+        <tr><td>9 undeployed FPS requirements</td><td class="c-amber">~3M needing correction</td><td class="c-red">FAAs can't help</td><td>High</td><td class="c-amber">P1</td></tr>
+        <tr><td>Test case traceability gaps</td><td class="c-amber">All (silent bugs)</td><td class="c-red">Undetectable breaks</td><td>Low</td><td class="c-amber">P1</td></tr>
+        <tr><td>IRS integration error handling</td><td class="c-muted">~500K edge cases/yr</td><td class="c-amber">No fallback</td><td>Medium</td><td class="c-green">P2</td></tr>
+        <tr><td>DORA metrics instrumentation</td><td class="c-muted">All teams</td><td class="c-amber">Can't measure</td><td>Low</td><td class="c-green">P2</td></tr>
       </table>
-      <p style="font-size:0.6em; color:var(--muted); margin-top:8px;">Sources: GAO-23-106376 · GAO-25-107396 · FSA public complaint data</p>
+      <p style="font-size:0.32em !important; color:var(--muted); margin-top:8px;">Sources: GAO-23-106376 · GAO-25-107396 · FSA public data</p>
     </div>
   </div>
-  <aside class="notes">P0 items aren't prioritized because they're technically interesting. They're prioritized because they have the largest student impact. "17M students affected" is your opening argument with FSA leadership.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     09 · CI/CD AS STUDENT OUTCOMES
-════════════════════════════════════════════════════════ -->
+<!-- 09 CI/CD -->
 <section data-background-color="#080c14" style="--accent:var(--blue)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
     <div class="eyebrow">Developer Experience</div>
-    <div class="slide-title">Deploy cadence is a student outcomes metric — the <span class="hl" style="color:var(--blue)">SAI formula bug</span> took weeks to fix because the pipeline wasn't built to move fast.</div>
+    <div class="slide-title">Deploy cadence is a student outcomes metric — the <span class="hl" style="color:var(--blue)">SAI bug</span> took weeks to fix because the pipeline couldn't move fast.</div>
     <div class="slide-body">
       <div class="g2">
         <div class="card card-red">
@@ -759,108 +555,86 @@
             <tr><td>Change failure rate</td><td class="c-red">Unknown</td><td class="c-green">&lt;5%</td></tr>
             <tr><td>MTTR</td><td class="c-red">Unknown</td><td class="c-green">&lt;1 hour</td></tr>
           </table>
-          <p style="color:var(--red); font-size:0.65em; margin-top:8px;"><strong>Nothing measured = nothing improved</strong></p>
         </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
           <div class="card">
-            <div class="card-label" style="color:var(--muted)">The Student Impact of Slow CI/CD</div>
+            <div class="card-label" style="color:var(--muted)">The Student Cost</div>
             <ul>
-              <li>SAI formula bug found March 2024 — <strong>weeks to deploy the fix</strong></li>
-              <li>Every week of delay = students missing enrollment deadlines</li>
-              <li>Change control designed for annual waterfall, not iterative software</li>
+              <li>SAI bug found March 2024 — <strong>weeks to deploy fix</strong></li>
+              <li>Every week of delay = enrollment deadlines missed</li>
+              <li>Change control designed for annual releases, not software</li>
             </ul>
           </div>
           <div class="card card-green">
             <div class="card-label" style="color:var(--green)">Technical PM Roadmap</div>
             <ul>
               <li>Instrument DORA across all teams <span class="pill p-amber">Month 1</span></li>
-              <li>Identify the single biggest deploy bottleneck <span class="pill p-amber">Month 2</span></li>
-              <li>Ship one change that doubles frequency <span class="pill p-green">Month 3</span></li>
+              <li>Find the single biggest bottleneck <span class="pill p-amber">Month 2</span></li>
+              <li>Ship one change that doubles deploy freq <span class="pill p-green">Month 3</span></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <aside class="notes">The connective tissue: "We need better CI/CD" is easy to deprioritize. "Our pipeline means formula bugs take weeks to fix and 5M students get wrong aid offers" is not.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     10 · 90-DAY PLAN
-════════════════════════════════════════════════════════ -->
+<!-- 10 90-DAY PLAN -->
 <section data-background-color="#080c14" style="--accent:var(--amber)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
     <div class="eyebrow">90-Day Plan</div>
-    <div class="slide-title">Day 1–30 is for listening. <span class="hl">The biggest risk</span> is arriving with a plan and executing against the wrong problem.</div>
+    <div class="slide-title">Day 1–30 is for listening. <span class="hl">Arriving with a plan</span> and executing against the wrong problem is the biggest risk.</div>
     <div class="slide-body" style="justify-content:flex-start; padding-top:4px;">
       <div class="rmrow">
         <div class="rmphase">Day 1–30</div>
-        <div>
-          <div class="rmtitle">Listen, Map, Don't Break Anything</div>
-          <div class="rmdesc">Shadow every team. Read every GAO finding. Map the architecture — what exists, what's broken, who owns what. Build relationships with FSA leadership, contractors, and IRS/SSA/DHS owners. Audit the 9 undeployed FPS requirements.</div>
-        </div>
+        <div><div class="rmtitle">Listen, Map, Don't Break Anything</div><div class="rmdesc">Shadow every team. Read every GAO finding. Map what exists, what's broken, who owns what. Build relationships with FSA leadership, contractors, IRS/SSA/DHS owners.</div></div>
       </div>
       <div class="rmrow">
         <div class="rmphase">Day 31–60</div>
-        <div>
-          <div class="rmtitle">Instrument and Prioritize</div>
-          <div class="rmdesc">Stand up DORA metrics. Build requirement traceability matrix (user need → spec → test → deployed). Present tech debt backlog with student impact per item. Get FSA alignment on P0 before proposing solutions.</div>
-        </div>
+        <div><div class="rmtitle">Instrument and Prioritize</div><div class="rmdesc">Stand up DORA metrics. Build requirement traceability matrix. Present tech debt backlog with student impact per item. Get FSA alignment on P0 before proposing solutions.</div></div>
       </div>
       <div class="rmrow">
         <div class="rmphase">Day 61–90</div>
-        <div>
-          <div class="rmtitle">Ship One Thing That Matters</div>
-          <div class="rmdesc">Own the API contract for one integration (IRS FTI or SSA). Coordinate with engineers, legal, policy. Get it deployed and verified. Prove the traceability framework works end to end.</div>
-        </div>
+        <div><div class="rmtitle">Ship One Thing That Matters</div><div class="rmdesc">Own the API contract for one integration (IRS FTI or SSA). Coordinate with engineers, legal, policy. Deploy and verify. Prove traceability works end to end.</div></div>
       </div>
       <div class="rmrow">
         <div class="rmphase" style="color:var(--teal)">Year 1</div>
-        <div>
-          <div class="rmtitle" style="color:var(--teal)">Architecture for an Agentic Future</div>
-          <div class="rmdesc">Propose MCP-connected agent layer for all federal integrations. Build cross-agency alignment. Pilot one integration end-to-end. Demonstrate: batch → event-driven, weeks → same-day.</div>
-        </div>
+        <div><div class="rmtitle" style="color:var(--teal)">Architecture for an Agentic Future</div><div class="rmdesc">Propose MCP-connected agent layer. Build cross-agency alignment. Pilot one integration end-to-end. Demonstrate: batch → event-driven, weeks → same-day.</div></div>
       </div>
     </div>
   </div>
-  <aside class="notes">The 30-day listening rule isn't humility theater — it's risk management. Coming in with a plan and executing against the wrong problem is the most common failure mode for technical PMs in government.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     11 · THE STAKES
-════════════════════════════════════════════════════════ -->
+<!-- 11 STAKES -->
 <section data-background-color="#080c14">
-  <div class="cover-wrap" style="background: radial-gradient(ellipse 80% 50% at 50% 40%, rgba(245,165,36,.06) 0%, transparent 70%);">
+  <div class="cover-wrap" style="background: radial-gradient(ellipse 80% 50% at 50% 40%, rgba(245,165,36,.05) 0%, transparent 70%);">
     <div class="eyebrow" style="justify-content:center;">The Stakes</div>
-    <h2 style="font-size:1.8em; font-weight:900; color:var(--white); text-align:center; letter-spacing:-0.02em; margin-bottom:8px;">Every platform decision<br>has a <span style="color:var(--amber)">name</span> attached to it.</h2>
-    <div class="divider" style="margin: 12px auto 24px;"></div>
-    <div class="stat-row" style="justify-content:center; gap:52px; margin-bottom:24px;">
-      <div class="stat"><div class="num" style="color:var(--blue)">17M</div><div class="sub">students<br>per year</div></div>
-      <div class="stat"><div class="num" style="color:var(--amber)">$120B</div><div class="sub">federal aid<br>annually</div></div>
-      <div class="stat"><div class="num" style="color:var(--teal)">44%</div><div class="sub">first-gen rely<br>solely on federal aid</div></div>
+    <h2 style="font-size:0.85em !important; font-weight:900 !important; color:var(--white) !important; text-transform:none !important; letter-spacing:-0.02em !important; margin-bottom:8px;">Every platform decision has a <span style="color:var(--amber)">name</span> attached to it.</h2>
+    <div class="divider" style="margin:10px auto 20px;"></div>
+    <div class="stat-row" style="margin-bottom:20px;">
+      <div class="stat"><div class="num" style="color:var(--blue)">17M</div><div class="sub">students per year</div></div>
+      <div class="stat"><div class="num" style="color:var(--amber)">$120B</div><div class="sub">federal aid annually</div></div>
+      <div class="stat"><div class="num" style="color:var(--teal)">44%</div><div class="sub">first-gen rely solely<br>on federal aid</div></div>
     </div>
-    <div class="blockquote" style="max-width:640px; text-align:left;">
+    <div class="blockquote" style="max-width:600px; text-align:left;">
       "The FAFSA processing system had availability issues, recurring errors, and long wait times that affected students' ability to receive aid."
       <cite>— GAO-25-107396, September 2025</cite>
     </div>
   </div>
-  <aside class="notes">This is the emotional anchor. Ground the technical conversation in what's actually at stake — not platform uptime, but whether a first-generation student can afford college.</aside>
 </section>
 
-<!-- ════════════════════════════════════════════════════════
-     12 · CLOSING
-════════════════════════════════════════════════════════ -->
+<!-- 12 CLOSING -->
 <section data-background-color="#080c14" style="--accent:var(--teal)">
   <div class="accent-bar"></div>
   <div class="slide-inner">
     <div class="eyebrow">Why Steve Lozano</div>
-    <div class="slide-title">I've worked every dimension of this problem — <span class="hl" style="color:var(--teal)">cross-agency APIs, AI infrastructure, and government delivery</span> at scale.</div>
+    <div class="slide-title">I've worked every dimension of this problem — <span class="hl" style="color:var(--teal)">cross-agency APIs, AI infrastructure, government delivery.</span></div>
     <div class="slide-body">
       <div class="g2">
         <div class="card card-blue">
           <div class="card-label" style="color:var(--blue)">Cross-Agency Platform at Scale</div>
-          <p>NYC MyCity: API layer connecting 10+ agencies for 8M residents. Same challenges as FSA — multiple authorities, compliance constraints, no control over upstream systems. <strong>Accelerated delivery by 6+ months through alignment.</strong></p>
+          <p>NYC MyCity: API layer connecting 10+ agencies for 8M residents. Same challenges — multiple authorities, compliance constraints, no control over upstream systems. <strong>Accelerated delivery 6+ months.</strong></p>
         </div>
         <div class="card card-blue">
           <div class="card-label" style="color:var(--blue)">AI-Ready Infrastructure</div>
@@ -868,40 +642,32 @@
         </div>
         <div class="card card-teal">
           <div class="card-label" style="color:var(--teal)">Technical PM Who Builds</div>
-          <p>PDF.js polygon measurement, QBO OAuth integration, Supabase Edge Functions — all shipped in the last 30 days. I write specs and build proofs of concept to validate them before engineering commits.</p>
+          <p>PDF.js polygon measurement, QBO OAuth, Supabase Edge Functions — all shipped in the last 30 days. I write specs and build proofs of concept to validate them before engineering commits.</p>
         </div>
         <div class="card card-teal">
           <div class="card-label" style="color:var(--teal)">Change Without Authority</div>
-          <p>10+ agencies with different incentives, timelines, and maturity levels. I drive through trust and alignment — exactly what the USDS embedded role requires. <strong>No mandate needed.</strong></p>
+          <p>10+ agencies, different incentives, timelines, and maturity. I drive through trust and alignment — exactly what the USDS embedded role requires.</p>
         </div>
       </div>
-      <p style="color:var(--amber); font-weight:700; font-size:0.78em; text-align:center; margin-top:12px;">
-        github.com/GitSteveLozano &nbsp;·&nbsp; linkedin.com/in/stevelr &nbsp;·&nbsp; stephenlozanorivacoba@gmail.com
+      <p style="color:var(--amber) !important; font-weight:700 !important; text-align:center; font-size:0.4em !important; margin-top:10px;">
+        github.com/GitSteveLozano · linkedin.com/in/stevelr · stephenlozanorivacoba@gmail.com
       </p>
     </div>
   </div>
-  <aside class="notes">Close by connecting back: everything in this deck — the GAO analysis, the agent architecture, the API contracts — I built this week. That's what a Technical PM who builds looks like in practice.</aside>
 </section>
 
-</div><!-- /.slides -->
-</div><!-- /.reveal -->
-
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
 <script>
 Reveal.initialize({
-  width: 960,
-  height: 540,
+  width: 960, height: 540,
   margin: 0.04,
-  minScale: 0.2,
-  maxScale: 2.0,
-  center: false,
-  hash: true,
-  transition: 'fade',
-  transitionSpeed: 'fast',
-  controls: true,
-  controlsTutorial: false,
-  progress: true,
-  slideNumber: 'c/t',
+  minScale: 0.2, maxScale: 2.0,
+  center: false, hash: true,
+  transition: 'fade', transitionSpeed: 'fast',
+  controls: true, controlsTutorial: false,
+  progress: true, slideNumber: 'c/t',
 });
 </script>
 </body>

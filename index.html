@@ -38,7 +38,11 @@
 /* ─── REVEAL OVERRIDES ────────────────────────────────────── */
 .reveal {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 16px; /* base — everything else em-relative */
+  /* 20px base at the 1280×720 logical canvas.
+     Reveal applies transform:scale() to fit any viewport,
+     so all em values scale proportionally — no media queries needed.
+     20px → ~30px rendered on 1920×1080, ~20px on 1280×800, ~40px on 4K. */
+  font-size: 20px;
   background: var(--bg);
 }
 .reveal .slides section {
@@ -58,7 +62,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 28px 48px 24px;
+  padding: 24px 52px 20px;
 }
 /* Top accent line */
 .accent-bar {
@@ -78,12 +82,12 @@
 
 /* ─── TYPOGRAPHY ──────────────────────────────────────────── */
 .eyebrow {
-  font-size: 0.62em;
+  font-size: 0.55em;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -98,13 +102,13 @@
 }
 
 .slide-title {
-  font-size: 1.65em;
+  font-size: 1.3em;
   font-weight: 800;
   line-height: 1.2;
   color: var(--white);
   letter-spacing: -0.02em;
-  margin-bottom: 16px;
-  max-width: 88%;
+  margin-bottom: 12px;
+  max-width: 92%;
 }
 .slide-title .hl { color: var(--accent); }
 
@@ -113,12 +117,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.reveal p  { font-size: 0.78em; color: var(--txt); line-height: 1.65; margin: 0; }
-.reveal li { font-size: 0.78em; color: var(--txt); line-height: 1.65; margin-bottom: 5px; }
-.reveal ul { padding-left: 1.2em; }
+.reveal p  { font-size: 0.68em; color: var(--txt); line-height: 1.6; margin: 0; }
+.reveal li { font-size: 0.68em; color: var(--txt); line-height: 1.6; margin-bottom: 4px; }
+.reveal ul { padding-left: 1.1em; }
 .reveal strong { color: var(--white); }
 
 /* ─── GRID ────────────────────────────────────────────────── */
@@ -132,27 +136,27 @@
   background: var(--card);
   border: 1px solid var(--bord);
   border-radius: 10px;
-  padding: 14px 18px;
+  padding: 12px 16px;
 }
 .card .card-label {
-  font-size: 0.6em;
+  font-size: 0.52em;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 7px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 .card h4 {
-  font-size: 0.8em;
+  font-size: 0.72em;
   font-weight: 700;
   color: var(--white);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   letter-spacing: -0.01em;
 }
-.card p  { font-size: 0.72em; }
-.card li { font-size: 0.72em; }
+.card p  { font-size: 0.64em; }
+.card li { font-size: 0.64em; }
 
 .card-red    { border-color: rgba(240,64,96,.25);  background: rgba(240,64,96,.06); }
 .card-amber  { border-color: rgba(245,165,36,.25); background: rgba(245,165,36,.06); }
@@ -165,12 +169,12 @@
 .stat-row { display: flex; gap: 32px; align-items: center; }
 .stat { text-align: center; }
 .stat .num {
-  font-size: 2.8em;
+  font-size: 2.4em;
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
 }
-.stat .sub { font-size: 0.65em; color: var(--muted); line-height: 1.4; margin-top: 3px; }
+.stat .sub { font-size: 0.58em; color: var(--muted); line-height: 1.4; margin-top: 3px; }
 
 /* ─── FLOW ────────────────────────────────────────────────── */
 .flow {
@@ -182,14 +186,14 @@
 .flow-node {
   flex: 1;
   text-align: center;
-  padding: 10px 6px;
+  padding: 8px 5px;
   border-radius: 8px;
-  font-size: 0.62em;
+  font-size: 0.54em;
   color: var(--txt);
   line-height: 1.35;
   border: 1px solid var(--bord);
   background: var(--card);
-  min-width: 80px;
+  min-width: 70px;
 }
 .flow-node .fn-icon { font-size: 1.3em; display: block; margin-bottom: 2px; }
 .flow-node .fn-sub  { font-size: 0.82em; color: var(--muted); }
@@ -199,11 +203,11 @@
 .flow-arrow { flex-shrink:0; color:var(--muted); padding: 0 5px; font-size: 0.85em; }
 
 /* ─── TABLE ───────────────────────────────────────────────── */
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.7em; }
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.62em; }
 .reveal th {
   background: var(--surf);
   color: var(--muted);
-  padding: 7px 11px;
+  padding: 6px 10px;
   text-align: left;
   font-weight: 600;
   font-size: 0.78em;
@@ -211,7 +215,7 @@
   letter-spacing: 0.04em;
   border-bottom: 1px solid var(--bord);
 }
-.reveal td { padding: 7px 11px; border-bottom: 1px solid var(--bord2); color: var(--txt); }
+.reveal td { padding: 6px 10px; border-bottom: 1px solid var(--bord2); color: var(--txt); }
 .reveal tr:last-child td { border-bottom: none; }
 .c-red    { color: var(--red);    font-weight: 600; }
 .c-amber  { color: var(--amber);  font-weight: 600; }
@@ -222,12 +226,12 @@
 /* ─── QUOTE ───────────────────────────────────────────────── */
 .blockquote {
   border-left: 2px solid var(--amber);
-  padding: 10px 16px;
+  padding: 9px 14px;
   background: rgba(245,165,36,.05);
   border-radius: 0 8px 8px 0;
   font-style: italic;
   color: var(--txt);
-  font-size: 0.75em;
+  font-size: 0.65em;
   line-height: 1.6;
 }
 .blockquote cite {
@@ -260,15 +264,15 @@
 .persona {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
   background: var(--card);
   border: 1px solid var(--bord);
   border-radius: 10px;
-  padding: 12px 16px;
+  padding: 10px 14px;
 }
-.persona .avi { font-size: 1.6em; flex-shrink: 0; line-height: 1; }
-.persona .pname { font-size: 0.72em; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.persona .pjtbd { font-size: 0.65em; color: var(--muted); font-style: italic; line-height: 1.5; }
+.persona .avi { font-size: 1.4em; flex-shrink: 0; line-height: 1; }
+.persona .pname { font-size: 0.65em; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.persona .pjtbd { font-size: 0.58em; color: var(--muted); font-style: italic; line-height: 1.5; }
 
 /* ─── ROADMAP ─────────────────────────────────────────────── */
 .rmrow {
@@ -279,9 +283,9 @@
   border-bottom: 1px solid var(--bord2);
 }
 .rmrow:last-child { border-bottom: none; }
-.rmphase { min-width: 70px; font-size: 0.62em; font-weight: 700; color: var(--accent); padding-top: 2px; }
-.rmtitle { font-size: 0.76em; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.rmdesc  { font-size: 0.66em; color: var(--muted); line-height: 1.5; }
+.rmphase { min-width: 68px; font-size: 0.55em; font-weight: 700; color: var(--accent); padding-top: 2px; }
+.rmtitle { font-size: 0.68em; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.rmdesc  { font-size: 0.6em; color: var(--muted); line-height: 1.5; }
 
 /* ─── BADGE ───────────────────────────────────────────────── */
 .badge {
@@ -309,7 +313,7 @@
   position: relative;
 }
 .cover-wrap .cover-title {
-  font-size: 2.2em;
+  font-size: 1.8em;
   font-weight: 900;
   line-height: 1.15;
   color: var(--white);
@@ -335,9 +339,9 @@
   background: #06080f;
   border: 1px solid var(--bord);
   border-radius: 8px;
-  padding: 14px;
+  padding: 12px;
   font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.62em;
+  font-size: 0.55em;
   line-height: 1.55;
   color: #7c8fbc;
   overflow: auto;

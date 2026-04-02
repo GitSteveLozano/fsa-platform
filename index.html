@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSA Platform Intelligence — Technical PM Vision</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/black.css">
+<style>
+  :root {
+    --blue: #3b82f6;
+    --amber: #f59e0b;
+    --green: #22c55e;
+    --red: #ef4444;
+    --muted: #94a3b8;
+    --surface: #1e293b;
+    --card: #0f172a;
+  }
+  .reveal { font-family: 'Inter', system-ui, sans-serif; }
+  .reveal .slides section {
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    width: 100%; height: 100%;
+    padding: 20px 60px; box-sizing: border-box;
+    text-align: left;
+  }
+  .reveal h1 { font-size: 2.2em; font-weight: 700; line-height: 1.2; }
+  .reveal h2 { font-size: 1.6em; font-weight: 600; color: var(--amber); margin-bottom: 0.4em; }
+  .reveal h3 { font-size: 1.1em; font-weight: 600; color: var(--blue); margin-bottom: 0.3em; }
+  .reveal p, .reveal li { font-size: 0.85em; line-height: 1.7; color: #cbd5e1; }
+  .reveal ul { width: 100%; padding-left: 1.2em; }
+  .reveal li { margin-bottom: 0.4em; }
+
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.6em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5em; }
+  .tag-problem { background: #ef444422; color: #ef4444; border: 1px solid #ef444444; }
+  .tag-vision  { background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; }
+  .tag-pm      { background: #3b82f622; color: #3b82f6; border: 1px solid #3b82f644; }
+  .tag-agent   { background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b44; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; }
+  .card {
+    background: var(--surface); border-radius: 10px;
+    padding: 20px 24px; border: 1px solid #334155;
+  }
+  .card-red   { border-color: #ef444444; background: #ef444408; }
+  .card-green { border-color: #22c55e44; background: #22c55e08; }
+  .card-blue  { border-color: #3b82f644; background: #3b82f608; }
+  .card-amber { border-color: #f59e0b44; background: #f59e0b08; }
+
+  .stat { font-size: 2.8em; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .stat-sub { font-size: 0.7em; color: var(--muted); }
+
+  .flow {
+    display: flex; align-items: center; gap: 0; width: 100%;
+    margin: 16px 0; flex-wrap: wrap;
+  }
+  .flow-step {
+    flex: 1; text-align: center; padding: 12px 8px;
+    background: var(--surface); border: 1px solid #334155;
+    border-radius: 6px; font-size: 0.62em; min-width: 80px;
+  }
+  .flow-arrow { color: #475569; font-size: 1.2em; padding: 0 6px; }
+  .flow-step.broken { border-color: #ef444466; background: #ef444410; }
+  .flow-step.fast   { border-color: #22c55e66; background: #22c55e10; }
+  .flow-step.agent  { border-color: #f59e0b66; background: #f59e0b10; }
+
+  .highlight { color: var(--amber); font-weight: 600; }
+  .dim { color: var(--muted); }
+
+  .agent-box {
+    background: #f59e0b0a; border: 1px solid #f59e0b33;
+    border-radius: 8px; padding: 12px 16px;
+    font-size: 0.7em; margin: 4px 0;
+  }
+  .agent-box .agent-name { color: #f59e0b; font-weight: 600; margin-bottom: 4px; }
+  .agent-box .agent-detail { color: #94a3b8; font-size: 0.9em; }
+
+  .quote {
+    border-left: 3px solid var(--amber); padding: 12px 20px;
+    background: #f59e0b08; border-radius: 0 8px 8px 0;
+    font-style: italic; color: #cbd5e1; font-size: 0.8em;
+    width: 100%; margin: 16px 0;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.72em; }
+  th { background: #1e293b; color: #94a3b8; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 8px 12px; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+  tr:nth-child(even) td { background: #0f172a44; }
+  .td-red   { color: #ef4444; }
+  .td-green { color: #22c55e; }
+  .td-amber { color: #f59e0b; }
+
+  .persona-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface); border-radius: 6px;
+    padding: 6px 12px; font-size: 0.72em; margin-bottom: 12px;
+    border: 1px solid #334155;
+  }
+  .badge-icon { font-size: 1.4em; }
+
+  .cover-accent { color: var(--amber); }
+  .cover-sub { color: var(--muted); font-size: 0.7em; margin-top: 0.5em; font-weight: 400; }
+
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 100px;
+    font-size: 0.6em; font-weight: 600; margin-left: 6px;
+    background: #1e293b; color: #94a3b8; border: 1px solid #334155;
+  }
+  .pill-red   { background: #ef444418; color: #ef4444; border-color: #ef444433; }
+  .pill-green { background: #22c55e18; color: #22c55e; border-color: #22c55e33; }
+  .pill-amber { background: #f59e0b18; color: #f59e0b; border-color: #f59e0b33; }
+
+  .roadmap-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid #1e293b;
+  }
+  .roadmap-phase { font-size: 0.65em; font-weight: 700; color: #64748b; min-width: 60px; padding-top: 2px; }
+  .roadmap-content h3 { font-size: 0.8em; color: #e2e8f0; margin: 0 0 4px 0; }
+  .roadmap-content p  { font-size: 0.68em; color: #64748b; margin: 0; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ─── SLIDE 1: COVER ─────────────────────────────────────────────────────── -->
+<section data-background-color="#020617">
+  <div style="text-align:center; max-width: 900px;">
+    <div class="tag tag-pm" style="margin-bottom: 24px;">Technical Product Manager · USDS / FSA</div>
+    <h1>Rebuilding the Platform<br>Behind <span class="cover-accent">$120B</span> in Student Aid</h1>
+    <p class="cover-sub">
+      A technical PM vision for Federal Student Aid's platform infrastructure —<br>
+      from today's broken architecture to an agentic, API-first future
+    </p>
+    <div style="margin-top: 40px; display: flex; justify-content: center; gap: 40px;">
+      <div style="text-align: center;">
+        <div class="stat" style="color: #ef4444;">17M</div>
+        <div class="stat-sub">FAFSA applicants/year</div>
+      </div>
+      <div style="text-align: center;">
+        <div class="stat" style="color: #f59e0b;">$120B</div>
+        <div class="stat-sub">Aid processed annually</div>
+      </div>
+      <div style="text-align: center;">
+        <div class="stat" style="color: #3b82f6;">30%</div>
+        <div class="stat-sub">Forms had errors in 2024</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    Opening frame: this isn't an abstract platform problem. Every failure in this system has a name — a student who didn't get their aid offer in time, a family that couldn't make an enrollment decision.
+  </aside>
+</section>
+
+<!-- ─── SLIDE 2: THE PROBLEM IN NUMBERS ───────────────────────────────────── -->
+<section>
+  <div class="tag tag-problem">The Current State</div>
+  <h2>What the GAO Found</h2>
+  <p style="margin-bottom: 20px; color: #94a3b8;">Two GAO reports (2023, 2025) documented specific, preventable failures:</p>
+  <div class="grid-2">
+    <div class="card card-red">
+      <h3>🔴 FAFSA Processing System (FPS)</h3>
+      <ul>
+        <li>Deployed Dec 2023 with <span class="highlight">9 of 25 requirements undeployed</span></li>
+        <li><span class="highlight">30% of forms</span> had processing/data errors (Mar–Apr 2024)</li>
+        <li>SAI formula missing asset data fields for dependent students</li>
+        <li>By May 2025: FSA <span class="highlight">stopped tracking</span> whether those requirements were ever completed</li>
+      </ul>
+    </div>
+    <div class="card card-red">
+      <h3>🔴 Quality & Oversight Failures</h3>
+      <ul>
+        <li>Test cases had <span class="highlight">no traceability to requirements</span> — impossible to verify if features worked as specified</li>
+        <li>No user testing plan for future FPS updates</li>
+        <li>Contractor performance data not validated</li>
+        <li>Key staff lacked required certifications for the dev methodology used</li>
+      </ul>
+    </div>
+  </div>
+  <div class="quote" style="margin-top: 20px;">
+    "FSA was unable to provide the status of the complete system... they were no longer tracking requirements." — GAO, Sept 2025
+  </div>
+  <aside class="notes">
+    These aren't hypothetical risks. They're documented failures that affected real students. The technical PM role exists to prevent this from happening again.
+  </aside>
+</section>
+
+<!-- ─── SLIDE 3: THE BROKEN FLOW ──────────────────────────────────────────── -->
+<section>
+  <div class="tag tag-problem">Root Cause Analysis</div>
+  <h2>Why Aid Takes Weeks Instead of Days</h2>
+  <p style="color: #94a3b8; margin-bottom: 24px;">The current architecture is sequential, batch-driven, and opaque. Every step is a waiting room.</p>
+
+  <div class="flow">
+    <div class="flow-step broken">📝 Student submits FAFSA<div class="dim" style="font-size:0.9em">studentaid.gov</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step broken">⏳ Overnight batch processing<div class="dim" style="font-size:0.9em">FPS queue</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step broken">🏦 IRS FTI request<div class="dim" style="font-size:0.9em">async, days</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step broken">🔍 SSA identity check<div class="dim" style="font-size:0.9em">3-day wait</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step broken">📊 SAI calculation<div class="dim" style="font-size:0.9em">formula bugs</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step broken">📤 ISIR to college<div class="dim" style="font-size:0.9em">batch, delayed</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step broken">🏫 FAA packages aid<div class="dim" style="font-size:0.9em">weeks of manual work</div></div>
+  </div>
+  <p style="text-align: center; color: #ef4444; font-weight: 600; margin-top: 8px;">Total timeline: 4–12 weeks</p>
+
+  <div class="grid-3" style="margin-top: 20px;">
+    <div class="card">
+      <div style="color: #ef4444; font-weight: 600; margin-bottom: 6px;">Batch, not real-time</div>
+      <p>Every step waits for the previous step to complete. No parallelism. Any failure cascades silently.</p>
+    </div>
+    <div class="card">
+      <div style="color: #ef4444; font-weight: 600; margin-bottom: 6px;">No observability</div>
+      <p>IRS/SSA/DHS integrations are black boxes. Engineers don't know when they fail until students report it.</p>
+    </div>
+    <div class="card">
+      <div style="color: #ef4444; font-weight: 600; margin-bottom: 6px;">No feedback loops</div>
+      <p>Students don't know where they are in the process. FAAs can't tell students anything specific. 3.5M forms unacknowledged for weeks.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    This is the core architectural problem. It's not a UI problem. It's not a policy problem. It's a fundamental architectural decision — batch processing — that creates all the downstream failures.
+  </aside>
+</section>
+
+<!-- ─── SLIDE 4: THE PERSONAS ─────────────────────────────────────────────── -->
+<section>
+  <div class="tag tag-pm">Who We're Building For</div>
+  <h2>Four Personas, One Platform</h2>
+  <div class="grid-2">
+    <div>
+      <div class="persona-badge"><span class="badge-icon">🎓</span> <div><strong>Maya</strong> — First-gen student, 17</div></div>
+      <div class="card" style="margin-bottom: 12px;">
+        <h3>Job to be Done</h3>
+        <p>"Help me figure out how much aid I can get <em>before</em> I commit to applying — without getting stuck on a form I don't understand."</p>
+        <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-red">3-day SSA wait</span>
+          <span class="pill pill-red">Formula errors</span>
+          <span class="pill pill-red">No status visibility</span>
+        </div>
+      </div>
+      <div class="persona-badge"><span class="badge-icon">🏫</span> <div><strong>David</strong> — Financial Aid Administrator</div></div>
+      <div class="card">
+        <h3>Job to be Done</h3>
+        <p>"Get ISIRs from FSA before enrollment deadlines — and know when FSA's system has issues so I can tell students what's happening."</p>
+        <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-red">Months-delayed ISIRs</span>
+          <span class="pill pill-red">Can't correct errors</span>
+          <span class="pill pill-red">No integration status</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="persona-badge"><span class="badge-icon">💻</span> <div><strong>Jordan</strong> — Platform Engineer (contractor)</div></div>
+      <div class="card" style="margin-bottom: 12px;">
+        <h3>Job to be Done</h3>
+        <p>"Ship code that works without causing an incident — and have a clear spec so I'm not guessing what 'done' looks like."</p>
+        <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-red">No requirement traceability</span>
+          <span class="pill pill-red">Unclear ownership</span>
+        </div>
+      </div>
+      <div class="persona-badge"><span class="badge-icon">🎯</span> <div><strong>Technical PM</strong> — The role being hired</div></div>
+      <div class="card">
+        <h3>Job to be Done</h3>
+        <p>"Make prioritization decisions I can defend — and build enough trust across FSA, contractors, and federal agencies to drive change without authority."</p>
+        <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-amber">No direct reports</span>
+          <span class="pill pill-amber">Cross-agency</span>
+          <span class="pill pill-amber">High visibility</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    The Technical PM doesn't build for students directly. They build the platform that engineers use to build for students. The downstream user impact is the North Star for every prioritization decision.
+  </aside>
+</section>
+
+<!-- ─── SLIDE 5: THE VISION ───────────────────────────────────────────────── -->
+<section data-background-color="#020617">
+  <div class="tag tag-vision">The Vision</div>
+  <h2>From Weeks to Minutes — An API-First, Agentic Platform</h2>
+  <p style="color: #94a3b8; margin-bottom: 24px;">The same student aid process — redesigned around parallel, agent-orchestrated API calls instead of sequential batch jobs.</p>
+
+  <div class="flow">
+    <div class="flow-step fast">📝 Student initiates FAFSA<div class="dim" style="font-size:0.9em">studentaid.gov</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step agent">🤖 Orchestrator Agent<div class="dim" style="font-size:0.9em">dispatches parallel</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step fast" style="background: #22c55e10; border-color: #22c55e44;">✅ ISIR generated<div class="dim" style="font-size:0.9em">minutes, not days</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step fast">🔔 FAA notified<div class="dim" style="font-size:0.9em">real-time</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step fast">🧑‍💼 Human review<div class="dim" style="font-size:0.9em">required by law</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step fast" style="background: #22c55e10; border-color: #22c55e44;">🎓 Aid decision<div class="dim" style="font-size:0.9em">same day</div></div>
+  </div>
+
+  <div class="grid-3" style="margin-top: 20px;">
+    <div class="agent-box">
+      <div class="agent-name">🏦 IRS Income Agent</div>
+      <div class="agent-detail">Real-time FTI lookup via API. No overnight batch. Formula validated before returning data. Audit trail logged.</div>
+    </div>
+    <div class="agent-box">
+      <div class="agent-name">🔍 SSA Identity Agent</div>
+      <div class="agent-detail">3-day wait → seconds. Runs in parallel with IRS verification. Returns structured identity confirmation with confidence score.</div>
+    </div>
+    <div class="agent-box">
+      <div class="agent-name">📊 Eligibility Agent</div>
+      <div class="agent-detail">SAI calculation with validated formula. Input fields verified before computation. Deterministic output with explainability trail.</div>
+    </div>
+  </div>
+
+  <p style="text-align: center; color: #22c55e; font-weight: 600; margin-top: 16px;">Total timeline: Same day · Human approval required at final step</p>
+  <aside class="notes">
+    The key constraint: human-in-the-loop for final decisions is not optional — it's legally required. The agents handle verification and calculation. Humans approve. The Technical PM designs where those handoffs happen.
+  </aside>
+</section>
+
+<!-- ─── SLIDE 6: AGENT ARCHITECTURE ──────────────────────────────────────── -->
+<section>
+  <div class="tag tag-agent">Agent Architecture</div>
+  <h2>The MCP-Connected Agent Layer</h2>
+  <p style="color: #94a3b8; margin-bottom: 20px;">Each federal integration becomes a structured MCP server — well-defined inputs, validated outputs, full audit trail. The Technical PM owns the API contracts.</p>
+
+  <div class="grid-2">
+    <div>
+      <div class="card card-amber" style="margin-bottom: 12px;">
+        <h3>Orchestrator Agent</h3>
+        <p>Receives FAFSA submission event → dispatches parallel agent calls → waits for all results → assembles ISIR → routes to FAA with audit package.</p>
+        <p style="color: #f59e0b; margin-top: 8px; font-size: 0.8em;"><strong>PM owns:</strong> State machine design, timeout handling, retry logic spec</p>
+      </div>
+      <div class="card" style="margin-bottom: 12px;">
+        <h3>Audit Agent</h3>
+        <p>Every agent call — input, output, timestamp, confidence — logged immutably. Required for FERPA compliance and future GAO review.</p>
+        <p style="color: #94a3b8; margin-top: 8px; font-size: 0.8em;"><strong>PM owns:</strong> Audit schema, retention policy, access controls</p>
+      </div>
+      <div class="card">
+        <h3>Notification Agent</h3>
+        <p>Real-time status to students and FAAs. Eliminates the "3.5M forms unacknowledged" problem. Configurable per institution.</p>
+        <p style="color: #94a3b8; margin-top: 8px; font-size: 0.8em;"><strong>PM owns:</strong> Message templates, opt-in/out spec, SLA thresholds</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom: 10px;">
+        <h3>🏦 IRS MCP Server</h3>
+        <p>Input: SSN + consent token<br>Output: FTI data object (validated schema)<br>SLA: &lt;2s · Fallback: manual review queue</p>
+      </div>
+      <div class="card" style="margin-bottom: 10px;">
+        <h3>🔍 SSA MCP Server</h3>
+        <p>Input: Name + DOB + SSN<br>Output: Identity confidence score (0–1)<br>SLA: &lt;1s · Threshold: ≥0.85 auto-approve</p>
+      </div>
+      <div class="card" style="margin-bottom: 10px;">
+        <h3>🏛️ DHS MCP Server</h3>
+        <p>Input: Citizenship/residency status<br>Output: Aid eligibility flags<br>SLA: &lt;3s · Edge cases: manual review</p>
+      </div>
+      <div class="card" style="background: #22c55e08; border-color: #22c55e33;">
+        <h3 style="color: #22c55e;">📊 Eligibility Calculation</h3>
+        <p>Input: Validated IRS + SSA output<br>Output: SAI + Pell eligibility + aid package<br>Formula: versioned, tested, auditable</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    The Technical PM doesn't write the agent code. They write the API contracts — the input/output schemas, the SLA requirements, the error handling specs — that engineers implement. That's the spec work this role owns.
+  </aside>
+</section>
+
+<!-- ─── SLIDE 7: API CONTRACT DESIGN ─────────────────────────────────────── -->
+<section>
+  <div class="tag tag-pm">Technical PM Deliverable</div>
+  <h2>What a Technical PM Actually Produces</h2>
+  <p style="color: #94a3b8; margin-bottom: 20px;">The agent architecture only works if the API contracts are precise. This is the spec work the Technical PM owns.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>API Contract: IRS FTI Integration</h3>
+      <pre style="font-size: 0.55em; color: #94a3b8; background: #020617; padding: 14px; border-radius: 6px; overflow: auto; text-align: left; line-height: 1.5;">
+{
+  "endpoint": "POST /v1/irs/fti-lookup",
+  "auth": "OAuth2 + consent_token",
+  "input": {
+    "ssn": "string (encrypted)",
+    "tax_year": "integer",
+    "consent_token": "string (expires 24h)"
+  },
+  "output": {
+    "agi":         "integer | null",
+    "tax_status":  "enum: filed|unfiled|nonfiler",
+    "asset_value": "integer | null",
+    "confidence":  "float 0.0-1.0",
+    "audit_id":    "uuid"
+  },
+  "sla":     { "p50": "800ms", "p99": "2000ms" },
+  "errors": ["consent_expired", "ssn_not_found",
+             "irs_unavailable"],
+  "fallback": "queue_manual_review"
+}</pre>
+    </div>
+    <div>
+      <div class="card card-blue" style="margin-bottom: 14px;">
+        <h3>Why API Contracts Are the PM's Job</h3>
+        <ul>
+          <li>Engineers need precise input/output specs to build against</li>
+          <li>Policy teams need to see compliance requirements encoded in the schema</li>
+          <li>Audit teams need the <code>audit_id</code> trail to satisfy FERPA review</li>
+          <li>When IRS is unavailable, the <code>fallback</code> spec prevents cascading failure</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Requirement Traceability (What Was Missing)</h3>
+        <table>
+          <tr><th>User Need</th><th>API Spec</th><th>Test Case</th><th>Status</th></tr>
+          <tr><td>Income verified before SAI</td><td>v1/irs/fti-lookup</td><td>TC-IRS-001</td><td class="td-green">✓ Covered</td></tr>
+          <tr><td>Asset data included</td><td>asset_value field</td><td>TC-IRS-002</td><td class="td-green">✓ Covered</td></tr>
+          <tr><td>Consent expires</td><td>consent_expired error</td><td>TC-IRS-003</td><td class="td-amber">⚠ Partial</td></tr>
+          <tr><td>IRS downtime handled</td><td>fallback: manual review</td><td>TC-IRS-004</td><td class="td-red">✗ Missing</td></tr>
+        </table>
+        <p style="color: #ef4444; font-size: 0.7em; margin-top: 8px;">This table is what FSA was missing. The GAO found it. The Technical PM builds it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 8: TECH DEBT PRIORITIZATION ────────────────────────────────── -->
+<section>
+  <div class="tag tag-pm">Defensible Decision-Making</div>
+  <h2>Tech Debt Prioritization Framework</h2>
+  <p style="color: #94a3b8; margin-bottom: 20px;">Every prioritization decision is tied to students affected — not just engineering effort. This is how you defend roadmap decisions to FSA leadership and OMB.</p>
+
+  <table>
+    <tr>
+      <th>Tech Debt Item</th>
+      <th>Students Affected</th>
+      <th>Risk if Unaddressed</th>
+      <th>Effort</th>
+      <th>Priority Score</th>
+      <th>Source</th>
+    </tr>
+    <tr>
+      <td>SAI formula — asset data gap</td>
+      <td class="td-red">~5M dependent students</td>
+      <td class="td-red">Incorrect aid offers</td>
+      <td>Medium</td>
+      <td class="td-red" style="font-weight:700">P0</td>
+      <td>GAO 2024</td>
+    </tr>
+    <tr>
+      <td>SSA verification latency (3 days)</td>
+      <td class="td-red">~17M applicants</td>
+      <td class="td-amber">Enrollment deadline risk</td>
+      <td>High</td>
+      <td class="td-red" style="font-weight:700">P0</td>
+      <td>Public complaint data</td>
+    </tr>
+    <tr>
+      <td>9 undeployed FPS requirements</td>
+      <td class="td-amber">~3M forms needing correction</td>
+      <td class="td-red">FAAs can't correct errors</td>
+      <td>High</td>
+      <td class="td-amber" style="font-weight:700">P1</td>
+      <td>GAO Sept 2025</td>
+    </tr>
+    <tr>
+      <td>Test case traceability gaps</td>
+      <td class="td-amber">All users (silent failures)</td>
+      <td class="td-red">Undetectable regressions</td>
+      <td>Low</td>
+      <td class="td-amber" style="font-weight:700">P1</td>
+      <td>GAO Sept 2025</td>
+    </tr>
+    <tr>
+      <td>IRS integration error handling</td>
+      <td class="td-amber">~500K edge cases/year</td>
+      <td class="td-amber">Silent failures, no fallback</td>
+      <td>Medium</td>
+      <td class="td-green" style="font-weight:700">P2</td>
+      <td>Architecture review</td>
+    </tr>
+    <tr>
+      <td>DORA metrics instrumentation</td>
+      <td>All teams (velocity impact)</td>
+      <td class="td-amber">Can't measure improvement</td>
+      <td>Low</td>
+      <td class="td-green" style="font-weight:700">P2</td>
+      <td>Platform analysis</td>
+    </tr>
+  </table>
+  <aside class="notes">
+    The P0 items aren't prioritized because they're technically interesting — they're prioritized because they have the largest student impact. That framing matters when defending decisions to non-technical stakeholders.
+  </aside>
+</section>
+
+<!-- ─── SLIDE 9: CI/CD + PLATFORM HEALTH ─────────────────────────────────── -->
+<section>
+  <div class="tag tag-pm">Developer Experience</div>
+  <h2>CI/CD as a Product Decision</h2>
+  <p style="color: #94a3b8; margin-bottom: 20px;">Deployment frequency isn't a DevOps metric — it's a student outcomes metric. Teams that ship weekly serve students better than teams that ship monthly.</p>
+
+  <div class="grid-2">
+    <div class="card card-red" style="margin-bottom: 14px;">
+      <h3>Current State (Estimated)</h3>
+      <table>
+        <tr><th>DORA Metric</th><th>FSA Today</th><th>Elite</th></tr>
+        <tr><td>Deploy frequency</td><td class="td-red">Monthly / quarterly</td><td class="td-green">Multiple/day</td></tr>
+        <tr><td>Lead time for changes</td><td class="td-red">Weeks–months</td><td class="td-green">&lt;1 hour</td></tr>
+        <tr><td>Change failure rate</td><td class="td-red">Unknown (not measured)</td><td class="td-green">&lt;5%</td></tr>
+        <tr><td>MTTR</td><td class="td-red">Unknown (not measured)</td><td class="td-green">&lt;1 hour</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom: 14px;">
+        <h3>What Slow CI/CD Costs Students</h3>
+        <ul>
+          <li>SAI formula bug identified March 2024 — took <span class="highlight">weeks</span> to deploy the fix</li>
+          <li>Every week of delay = students missing enrollment deadlines</li>
+          <li>Change control processes designed for annual releases, not iterative software</li>
+        </ul>
+      </div>
+      <div class="card card-green">
+        <h3>The Technical PM Roadmap</h3>
+        <ul>
+          <li>Instrument DORA metrics across all engineering teams <span class="pill pill-amber">Month 1</span></li>
+          <li>Identify the highest-friction deployment bottleneck <span class="pill pill-amber">Month 2</span></li>
+          <li>Propose one change that doubles deploy frequency <span class="pill pill-green">Month 3</span></li>
+          <li>Build the business case: faster deploys = faster bug fixes = students served sooner</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SLIDE 10: THE PM ROADMAP ──────────────────────────────────────────── -->
+<section>
+  <div class="tag tag-pm">90-Day Plan</div>
+  <h2>How I'd Approach the First 90 Days</h2>
+
+  <div style="width: 100%;">
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Day 1–30</div>
+      <div class="roadmap-content">
+        <h3>Listen, Map, Don't Break Anything</h3>
+        <p>Shadow every engineering team. Read every GAO finding. Map the current architecture — what exists, what's broken, who owns what. Build relationships with FSA leadership, contractor PMs, and IRS/SSA/DHS integration owners. Audit the 9 undeployed FPS requirements.</p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Day 31–60</div>
+      <div class="roadmap-content">
+        <h3>Instrument and Prioritize</h3>
+        <p>Stand up DORA metrics across teams. Build the requirement traceability matrix (user need → spec → test → deployment). Present a prioritized tech debt backlog with student impact quantified. Get alignment on P0 items with FSA leadership.</p>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Day 61–90</div>
+      <div class="roadmap-content">
+        <h3>Ship One Thing That Matters</h3>
+        <p>Own the API contract spec for one integration (IRS FTI or SSA). Write the spec. Coordinate with engineers, legal, and policy. Get it deployed. Show that the traceability framework works: requirement → test → deployed → verified.</p>
+      </div>
+    </div>
+    <div class="roadmap-item" style="border-bottom: none;">
+      <div class="roadmap-phase">Year 1</div>
+      <div class="roadmap-content">
+        <h3>Architecture for the Agentic Future</h3>
+        <p>Propose the MCP-connected agent architecture for IRS/SSA/DHS integrations. Build internal alignment. Pilot one integration as an API-first proof of concept. Demonstrate the path from batch processing to real-time, from weeks to same-day.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    The 30-day listening period is non-negotiable. The biggest risk is coming in with a plan and executing against the wrong problem. The first month is about earning the standing to influence.
+  </aside>
+</section>
+
+<!-- ─── SLIDE 11: WHY THIS MATTERS ───────────────────────────────────────── -->
+<section data-background-color="#020617">
+  <div style="text-align: center; max-width: 800px;">
+    <div class="tag tag-vision" style="margin-bottom: 24px;">The Stakes</div>
+    <h2 style="color: white; margin-bottom: 32px;">Every Platform Decision Has a Name</h2>
+
+    <div class="grid-3" style="margin-bottom: 36px;">
+      <div class="card">
+        <div class="stat" style="color: #3b82f6;">17M</div>
+        <div class="stat-sub">Students who apply for aid annually</div>
+      </div>
+      <div class="card">
+        <div class="stat" style="color: #f59e0b;">$120B</div>
+        <div class="stat-sub">Federal aid processed annually</div>
+      </div>
+      <div class="card">
+        <div class="stat" style="color: #22c55e;">44%</div>
+        <div class="stat-sub">First-gen students rely solely on federal aid</div>
+      </div>
+    </div>
+
+    <div class="quote" style="text-align: left;">
+      "The FAFSA processing system had availability issues, recurring errors, and long wait times that affected students' ability to receive aid."
+      <div style="margin-top: 8px; font-style: normal; font-size: 0.85em; color: #64748b;">— GAO-25-107396</div>
+    </div>
+
+    <p style="color: #94a3b8; margin-top: 24px; font-size: 0.8em;">
+      A platform that processes $120B in aid for 17 million students deserves the same engineering rigor as any top consumer product. The Technical PM role is the bridge between the government's mission and the engineering execution that delivers it.
+    </p>
+  </div>
+</section>
+
+<!-- ─── SLIDE 12: CLOSING ─────────────────────────────────────────────────── -->
+<section data-background-color="#020617">
+  <div style="text-align: center; max-width: 800px;">
+    <h2 style="color: white; margin-bottom: 16px;">What I Bring to This Role</h2>
+    <p style="color: #94a3b8; margin-bottom: 32px; font-size: 0.8em;">The specific experience that maps to the documented FSA challenges:</p>
+
+    <div class="grid-2" style="text-align: left; margin-bottom: 32px;">
+      <div class="card card-blue">
+        <h3>Cross-Agency Platform at Scale</h3>
+        <p>NYC MyCity: API layer connecting 10+ agency systems for 8M residents. Same architectural challenges as IRS/SSA/DHS integration — multiple authorities, compliance constraints, no direct control.</p>
+      </div>
+      <div class="card card-blue">
+        <h3>AI-Ready Infrastructure</h3>
+        <p>Designed the data layer and API contracts for ML eligibility recommendations at MyCity. Currently building MCP-connected agent architecture for construction data platform. These aren't theoretical — they're shipped.</p>
+      </div>
+      <div class="card card-green">
+        <h3>Technical PM Who Builds</h3>
+        <p>Blueprint canvas (PDF.js + polygon measurement), QBO OAuth, Supabase Edge Functions — built in the last 30 days. I write specs and I can build proofs of concept that prove they work.</p>
+      </div>
+      <div class="card card-green">
+        <h3>Change Without Authority</h3>
+        <p>10+ agencies with different incentives, timelines, and technical maturity. Accelerated delivery by 6+ months through alignment and trust-building, not top-down mandate.</p>
+      </div>
+    </div>
+
+    <p style="color: #f59e0b; font-weight: 600; font-size: 0.9em;">
+      github.com/GitSteveLozano &nbsp;·&nbsp; linkedin.com/in/stevelr
+    </p>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1920, height: 960,
+    margin: 0.05, minScale: 0.2, maxScale: 1.5,
+    center: true,
+    hash: true,
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    controls: true,
+    progress: true,
+    slideNumber: 'c/t',
+  });
+</script>
+</body>
+</html>

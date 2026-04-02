@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSA Platform — Technical PM Vision | README</title>
+<style>
+  :root {
+    --bg: #020617;
+    --surface: #0f172a;
+    --card: #1e293b;
+    --border: #334155;
+    --text: #cbd5e1;
+    --muted: #64748b;
+    --blue: #3b82f6;
+    --amber: #f59e0b;
+    --green: #22c55e;
+    --red: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(2,6,23,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  nav .logo { font-weight: 700; font-size: 0.95em; color: white; }
+  nav .logo span { color: var(--amber); }
+  nav .links { display: flex; gap: 24px; }
+  nav .links a {
+    color: var(--muted); text-decoration: none; font-size: 0.85em;
+    transition: color 0.2s;
+  }
+  nav .links a:hover { color: white; }
+  nav .cta {
+    background: var(--amber); color: #000; font-weight: 700;
+    padding: 7px 16px; border-radius: 6px; text-decoration: none;
+    font-size: 0.82em; transition: opacity 0.2s;
+  }
+  nav .cta:hover { opacity: 0.85; }
+
+  /* Layout */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero {
+    padding: 80px 24px 60px;
+    max-width: 900px; margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 100px; padding: 5px 14px; font-size: 0.78em;
+    color: var(--muted); margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 2.4em; font-weight: 800; line-height: 1.15;
+    color: white; margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--amber); }
+  .hero .sub {
+    font-size: 1em; color: var(--muted); max-width: 600px; margin-bottom: 32px;
+  }
+  .hero .stats {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .hero .stat-item .num {
+    font-size: 2em; font-weight: 700; line-height: 1;
+  }
+  .hero .stat-item .label { font-size: 0.78em; color: var(--muted); }
+
+  /* Section */
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  h2 {
+    font-size: 1.4em; font-weight: 700; color: white;
+    margin-bottom: 8px;
+  }
+  h3 {
+    font-size: 1em; font-weight: 600; color: var(--blue);
+    margin-bottom: 8px; margin-top: 20px;
+  }
+  h3:first-child { margin-top: 0; }
+  p { color: var(--text); margin-bottom: 12px; font-size: 0.92em; }
+  ul { padding-left: 1.4em; margin-bottom: 12px; }
+  li { font-size: 0.9em; color: var(--text); margin-bottom: 6px; }
+  code {
+    background: #1e293b; border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: 4px; font-size: 0.85em;
+    color: #93c5fd;
+  }
+  pre {
+    background: #0a0f1e; border: 1px solid var(--border);
+    border-radius: 8px; padding: 20px; overflow-x: auto;
+    font-size: 0.82em; line-height: 1.6; margin: 16px 0;
+    color: #94a3b8;
+  }
+  pre .key   { color: #93c5fd; }
+  pre .val   { color: #6ee7b7; }
+  pre .str   { color: #fca5a5; }
+  pre .cmt   { color: #475569; }
+
+  .section-tag {
+    display: inline-block; padding: 3px 10px; border-radius: 4px;
+    font-size: 0.7em; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .tag-problem { background: #ef444415; color: #ef4444; border: 1px solid #ef444433; }
+  .tag-vision  { background: #22c55e15; color: #22c55e; border: 1px solid #22c55e33; }
+  .tag-pm      { background: #3b82f615; color: #3b82f6; border: 1px solid #3b82f633; }
+  .tag-agent   { background: #f59e0b15; color: #f59e0b; border: 1px solid #f59e0b33; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .card-grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .card.red   { border-color: #ef444433; background: #ef444408; }
+  .card.green { border-color: #22c55e33; background: #22c55e08; }
+  .card.blue  { border-color: #3b82f633; background: #3b82f608; }
+  .card.amber { border-color: #f59e0b33; background: #f59e0b08; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+  th {
+    background: var(--card); color: var(--muted); padding: 9px 12px;
+    text-align: left; font-weight: 600; font-size: 0.82em;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 9px 12px; border-bottom: 1px solid #1e293b; color: var(--text); }
+  tr:hover td { background: #0f172a55; }
+  .red   { color: var(--red); }
+  .green { color: var(--green); }
+  .amber { color: var(--amber); }
+  .bold  { font-weight: 700; }
+
+  /* Quote */
+  .quote {
+    border-left: 3px solid var(--amber); padding: 12px 20px;
+    background: #f59e0b08; border-radius: 0 8px 8px 0;
+    margin: 20px 0; font-style: italic; color: var(--text);
+    font-size: 0.9em;
+  }
+  .quote cite { font-style: normal; font-size: 0.85em; color: var(--muted); display: block; margin-top: 6px; }
+
+  /* Roadmap */
+  .roadmap { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+  .roadmap-item {
+    display: flex; gap: 20px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-phase {
+    min-width: 80px; font-size: 0.75em; font-weight: 700;
+    color: var(--amber); padding-top: 3px;
+  }
+  .roadmap-body h3 { font-size: 0.95em; color: white; margin: 0 0 4px; }
+  .roadmap-body p  { font-size: 0.85em; color: var(--muted); margin: 0; }
+
+  /* Footer */
+  footer {
+    padding: 40px 24px; text-align: center;
+    border-top: 1px solid var(--border); color: var(--muted);
+    font-size: 0.82em;
+  }
+  footer a { color: var(--amber); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">FSA Platform <span>Intelligence</span></div>
+  <div class="links">
+    <a href="#problem">The Problem</a>
+    <a href="#vision">The Vision</a>
+    <a href="#contracts">API Contracts</a>
+    <a href="#roadmap">90-Day Plan</a>
+  </div>
+  <a class="cta" href="index.html">View Slides →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">🎯 Technical Product Manager · USDS / Federal Student Aid</div>
+  <h1>Rebuilding the Platform<br>Behind <span>$120B</span> in Student Aid</h1>
+  <p class="sub">
+    A technical PM vision for Federal Student Aid's platform infrastructure — from today's broken batch architecture to an agentic, API-first future that serves students in hours, not weeks.
+  </p>
+  <div class="stats">
+    <div class="stat-item"><div class="num" style="color:var(--red)">17M</div><div class="label">FAFSA applicants/year</div></div>
+    <div class="stat-item"><div class="num" style="color:var(--amber)">$120B</div><div class="label">Aid processed annually</div></div>
+    <div class="stat-item"><div class="num" style="color:var(--blue)">30%</div><div class="label">Forms had errors in 2024</div></div>
+    <div class="stat-item"><div class="num" style="color:var(--muted)">9/25</div><div class="label">FPS requirements undeployed</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-tag tag-problem">The Current State</div>
+    <h2>What the GAO Found — Documented Failures, Not Opinion</h2>
+    <p>Two GAO reports (GAO-23-106376 and GAO-25-107396) documented specific, preventable platform failures. These aren't risks — they already happened.</p>
+
+    <div class="card-grid">
+      <div class="card red">
+        <h3>FAFSA Processing System (FPS)</h3>
+        <ul>
+          <li>Deployed Dec 2023 with <strong>9 of 25 requirements undeployed</strong></li>
+          <li><strong>30% of forms</strong> had processing/data errors (Mar–Apr 2024)</li>
+          <li>SAI formula missing <code>asset_value</code> for dependent students — 5M incorrect aid offers</li>
+          <li>By May 2025: FSA <strong>stopped tracking</strong> whether those 9 requirements were ever completed</li>
+        </ul>
+      </div>
+      <div class="card red">
+        <h3>Quality &amp; Oversight Failures</h3>
+        <ul>
+          <li>Test cases had <strong>no traceability to requirements</strong> — impossible to verify what was actually built</li>
+          <li>No user testing plan for future FPS updates</li>
+          <li>Contractor performance data not validated by FSA</li>
+          <li>Key staff lacked certifications required for the development methodology used</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote">
+      "FSA was unable to provide the status of the complete system... they were no longer tracking requirements."
+      <cite>— GAO-25-107396, September 2025</cite>
+    </div>
+
+    <h3>Why Batch Processing Is the Root Cause</h3>
+    <p>The current architecture is sequential and opaque. Every step waits for the previous one, failures cascade silently, and there's no feedback loop to students or administrators:</p>
+    <pre>Student submits FAFSA
+  → Overnight batch processing (FPS queue)
+  → IRS FTI request (async, days)
+  → SSA identity verification (3-day wait)
+  → SAI calculation (formula bugs)
+  → ISIR batch sent to college (delayed)
+  → FAA manually packages aid (weeks)
+
+Timeline: 4–12 weeks
+Result: 3.5M students unconfirmed for weeks, 30% with errors</pre>
+
+    <p>This is not a UI problem. It's not a policy problem. It's a fundamental architectural decision — batch processing — that creates every downstream failure.</p>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section id="personas">
+  <div class="container">
+    <div class="section-tag tag-pm">Who We're Building For</div>
+    <h2>Four Personas, One Platform</h2>
+    <p>The Technical PM doesn't build for students directly — they build the platform that engineers use to build for students. Student outcomes are the North Star for every prioritization decision.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>🎓 Maya — First-gen student, 17</h3>
+        <p><em>"Help me figure out how much aid I can get before I commit to applying — without getting stuck on a form I don't understand."</em></p>
+        <ul>
+          <li>Waited 3 days for SSA verification alone</li>
+          <li>Received incorrect aid offer due to SAI formula bug</li>
+          <li>No status visibility — didn't know if form was received or lost</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🏫 David — Financial Aid Administrator</h3>
+        <p><em>"Get ISIRs from FSA before enrollment deadlines — and know when FSA's system has issues so I can tell students something real."</em></p>
+        <ul>
+          <li>ISIRs delayed by months in 2024 cycle</li>
+          <li>9 undeployed FPS requirements = can't correct student errors</li>
+          <li>No integration status visibility — only learns of failures from student complaints</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>💻 Jordan — Platform Engineer (contractor)</h3>
+        <p><em>"Ship code that works without causing an incident — and have a clear spec so I'm not guessing what 'done' looks like."</em></p>
+        <ul>
+          <li>Test cases had no traceability to requirements</li>
+          <li>Unclear which of the 25 FPS requirements were actually deployed</li>
+          <li>No DORA metrics — no way to know if deploys are improving or degrading</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🎯 Technical PM — The Role Being Hired</h3>
+        <p><em>"Make prioritization decisions I can defend — and build enough trust across FSA, contractors, and agencies to drive change without authority."</em></p>
+        <ul>
+          <li>No direct reports — influence only</li>
+          <li>Spans contractors, IRS/SSA/DHS, FSA leadership, policy, legal</li>
+          <li>Every decision is high-visibility and politically constrained</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision">
+  <div class="container">
+    <div class="section-tag tag-vision">The Vision</div>
+    <h2>From Weeks to Same-Day — API-First, Agent-Orchestrated</h2>
+    <p>The same student aid process, redesigned around parallel agent calls instead of sequential batch jobs. Human approval is still required at the final step — by law, not just policy.</p>
+
+    <pre>Student initiates FAFSA (event triggers)
+  ↓
+Orchestrator Agent dispatches parallel:
+  ├─→ IRS Income Agent       (FTI lookup, &lt;2s)
+  ├─→ SSA Identity Agent     (verification, &lt;1s)
+  └─→ DHS Eligibility Agent  (residency check, &lt;3s)
+  ↓ (all run simultaneously)
+Eligibility Calculation Agent
+  ├─ Input: validated IRS + SSA + DHS results
+  ├─ Output: SAI + Pell eligibility + aid package
+  └─ Formula: versioned, tested, auditable
+  ↓
+Audit Agent logs everything (FERPA compliance)
+  ↓
+FAA Notification Agent alerts college in real-time
+  ↓
+FAA reviews and approves  ← human-in-the-loop required
+  ↓
+Student receives decision
+
+Timeline: Same day</pre>
+
+    <div class="card-grid" style="margin-top: 24px;">
+      <div class="card amber">
+        <h3>Orchestrator Agent</h3>
+        <p>Receives FAFSA submission event. Dispatches parallel agent calls. Collects results. Assembles ISIR. Routes to FAA with full audit package.</p>
+        <p><strong style="color:var(--amber)">PM owns:</strong> State machine design, timeout handling, retry logic spec, error escalation paths.</p>
+      </div>
+      <div class="card">
+        <h3>Audit Agent</h3>
+        <p>Every agent call — input, output, timestamp, confidence score — logged immutably. Required for FERPA compliance and future GAO review. Non-negotiable.</p>
+      </div>
+      <div class="card blue">
+        <h3>🏦 IRS MCP Server</h3>
+        <p>Input: SSN + consent token<br>Output: FTI (validated schema)<br>SLA: &lt;2s · Fallback: manual review queue</p>
+      </div>
+      <div class="card blue">
+        <h3>🔍 SSA MCP Server</h3>
+        <p>Input: Name + DOB + SSN<br>Output: Identity confidence (0–1)<br>SLA: &lt;1s · Threshold: ≥0.85 auto-approve</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API CONTRACTS -->
+<section id="contracts">
+  <div class="container">
+    <div class="section-tag tag-pm">Technical PM Deliverable</div>
+    <h2>API Contract Design — What a Technical PM Actually Produces</h2>
+    <p>The Technical PM doesn't write agent code. They write the API contracts — precise input/output schemas, SLA requirements, error handling specs, and audit requirements — that engineers implement and auditors review.</p>
+
+    <h3>Example: IRS FTI Verification Contract</h3>
+    <pre>{
+  "agent": "IRSFTIAgent",
+  "endpoint": "POST /v1/agents/irs-fti-verify",
+
+  "input": {
+    "ssn":           "string (encrypted in transit)",
+    "tax_year":      "integer  // e.g. 2025",
+    "consent_token": "string   // expires 24h after FAFSA submission"
+  },
+
+  "output": {
+    "agi":          "integer | null     // Adjusted Gross Income (cents)",
+    "tax_status":   "filed | unfiled | nonfiler",
+    "asset_value":  "integer | null     // CRITICAL: required for accurate SAI",
+    "confidence":   "float 0.0–1.0     // &lt;0.8 = recommend manual review",
+    "audit_id":     "uuid               // immutable compliance reference"
+  },
+
+  "sla": { "p50_ms": 800, "p99_ms": 2000 },
+
+  "error_handling": {
+    "consent_expired":  { "http": 401, "fallback": "route_to_manual_review" },
+    "ssn_not_found":    { "http": 404, "fallback": "route_to_manual_review" },
+    "irs_unavailable":  { "http": 503, "fallback": "retry_3x_then_manual",
+                          "retry_after_hours": 1 }
+  },
+
+  "audit": {
+    "all_calls_logged": true,
+    "retention_years":  7,
+    "ferpa_compliant":  true
+  }
+}</pre>
+
+    <h3>Requirement Traceability Framework</h3>
+    <p>The GAO found that FSA's test cases had "no traceability to requirements." This framework closes that gap — every shipped feature maps to a user need, every user need has test coverage:</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>User Need</th><th>Requirement</th><th>API Spec</th><th>Test Case</th><th>Deployed</th><th>Status</th></tr>
+        <tr>
+          <td>Aid offer is accurate</td>
+          <td>SAI includes asset data</td>
+          <td><code>asset_value</code> field</td>
+          <td>TC-IRS-002</td>
+          <td>v1.4.2</td>
+          <td class="green bold">✓ Verified</td>
+        </tr>
+        <tr>
+          <td>Student knows progress</td>
+          <td>Real-time status notifications</td>
+          <td>POST /v1/notifications</td>
+          <td>TC-NOTIF-001</td>
+          <td>—</td>
+          <td class="amber bold">⚠ In dev</td>
+        </tr>
+        <tr>
+          <td>IRS downtime handled</td>
+          <td>Fallback to manual review</td>
+          <td><code>irs_unavailable</code> error</td>
+          <td>TC-IRS-004</td>
+          <td>—</td>
+          <td class="red bold">✗ Missing</td>
+        </tr>
+        <tr>
+          <td>FAA can correct errors</td>
+          <td>SAI override endpoint</td>
+          <td>POST /v1/faa/sai-override</td>
+          <td>TC-FAA-001</td>
+          <td>—</td>
+          <td class="red bold">✗ Undeployed</td>
+        </tr>
+      </table>
+    </div>
+    <p style="color: var(--red); font-size: 0.85em;">The bottom two rows represent categories of the 9 undeployed FPS requirements. The PM's job is to make this table visible and drive it to green.</p>
+  </div>
+</section>
+
+<!-- TECH DEBT -->
+<section id="techdebt">
+  <div class="container">
+    <div class="section-tag tag-pm">Defensible Prioritization</div>
+    <h2>Tech Debt Prioritization — Student Impact as the Unit of Measure</h2>
+    <p>Every prioritization decision is defended in terms of students affected. This is what you bring to FSA leadership and OMB when they ask "why this, why now?"</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Tech Debt Item</th><th>Students Affected</th><th>Risk if Unaddressed</th><th>Effort</th><th>Priority</th><th>Source</th></tr>
+        <tr>
+          <td>SAI formula — asset data gap</td>
+          <td class="red">~5M dependent students</td>
+          <td class="red">Incorrect aid offers</td>
+          <td>Medium</td>
+          <td class="red bold">P0</td>
+          <td>GAO 2024</td>
+        </tr>
+        <tr>
+          <td>SSA verification latency (3 days)</td>
+          <td class="red">~17M all applicants</td>
+          <td class="amber">Enrollment deadline risk</td>
+          <td>High</td>
+          <td class="red bold">P0</td>
+          <td>Public complaints</td>
+        </tr>
+        <tr>
+          <td>9 undeployed FPS requirements</td>
+          <td class="amber">~3M forms need correction</td>
+          <td class="red">FAAs can't help students</td>
+          <td>High</td>
+          <td class="amber bold">P1</td>
+          <td>GAO Sept 2025</td>
+        </tr>
+        <tr>
+          <td>Test case traceability gaps</td>
+          <td class="amber">All users (silent failures)</td>
+          <td class="red">Undetectable regressions</td>
+          <td>Low</td>
+          <td class="amber bold">P1</td>
+          <td>GAO Sept 2025</td>
+        </tr>
+        <tr>
+          <td>IRS integration error handling</td>
+          <td class="amber">~500K edge cases/year</td>
+          <td class="amber">Silent failures, no fallback</td>
+          <td>Medium</td>
+          <td class="green bold">P2</td>
+          <td>Architecture review</td>
+        </tr>
+        <tr>
+          <td>DORA metrics instrumentation</td>
+          <td>All teams (velocity)</td>
+          <td class="amber">Can't measure improvement</td>
+          <td>Low</td>
+          <td class="green bold">P2</td>
+          <td>Platform analysis</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="container">
+    <div class="section-tag tag-pm">90-Day Plan</div>
+    <h2>How I'd Approach the First 90 Days</h2>
+    <p>The biggest risk is arriving with a plan and executing against the wrong problem. The first month is about earning the standing to influence, not demonstrating what I already know.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-item">
+        <div class="roadmap-phase">Day 1–30</div>
+        <div class="roadmap-body">
+          <h3>Listen, Map, Don't Break Anything</h3>
+          <p>Shadow every engineering team. Read every GAO finding. Map the architecture — what exists, what's broken, who owns what. Build relationships with FSA leadership, contractor PMs, and IRS/SSA/DHS integration owners. Audit the 9 undeployed FPS requirements and map their dependencies.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">Day 31–60</div>
+        <div class="roadmap-body">
+          <h3>Instrument and Prioritize</h3>
+          <p>Stand up DORA metrics across all teams. Build the requirement traceability matrix (user need → spec → test → deployed). Present a prioritized tech debt backlog with student impact quantified. Get FSA leadership alignment on P0 items before proposing solutions.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">Day 61–90</div>
+        <div class="roadmap-body">
+          <h3>Ship One Thing That Matters</h3>
+          <p>Own the API contract spec for one integration (IRS FTI or SSA). Coordinate with engineers, legal, and policy. Get it deployed and verified. Prove the traceability framework works: requirement → test → deployed → confirmed in production.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">Year 1</div>
+        <div class="roadmap-body">
+          <h3>Architecture for the Agentic Future</h3>
+          <p>Propose the MCP-connected agent architecture for IRS/SSA/DHS integrations. Build internal alignment across FSA, contractors, and agencies. Pilot one integration as an API-first proof of concept. Demonstrate the path: batch → event-driven, weeks → same-day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-tag tag-pm">About This Project</div>
+    <h2>What I Bring to This Role</h2>
+    <p>Experience that maps directly to the documented FSA challenges:</p>
+    <div class="card-grid">
+      <div class="card blue">
+        <h3>Cross-Agency Platform at Scale</h3>
+        <p>NYC MyCity: API layer connecting 10+ agency systems for 8M residents. Same challenges as IRS/SSA/DHS — multiple authorities, compliance constraints, no direct control over upstream systems.</p>
+      </div>
+      <div class="card blue">
+        <h3>AI-Ready Infrastructure</h3>
+        <p>Designed data layer and API contracts for ML eligibility recommendations at MyCity. Currently building MCP-connected agent architecture for construction data platform. Shipped, not theoretical.</p>
+      </div>
+      <div class="card green">
+        <h3>Technical PM Who Builds</h3>
+        <p>Blueprint canvas (PDF.js + polygon measurement), QBO OAuth integration, Supabase Edge Functions — all built in the last 30 days. I write specs and can build proofs of concept to validate them.</p>
+      </div>
+      <div class="card green">
+        <h3>Change Without Authority</h3>
+        <p>10+ agencies with different incentives, timelines, and technical maturity. Accelerated delivery by 6+ months through alignment and trust-building, not top-down mandate.</p>
+      </div>
+    </div>
+
+    <h3>References</h3>
+    <ul>
+      <li><strong>GAO-23-106376:</strong> "DEPARTMENT OF EDUCATION: Federal Student Aid System Modernization" (2023)</li>
+      <li><strong>GAO-25-107396:</strong> "DEPARTMENT OF EDUCATION: Gaps in Federal Student Aid Contract Oversight and System Testing Need Immediate Attention" (2025)</li>
+      <li><strong>FSA Annual Report FY2024:</strong> studentaid.gov</li>
+      <li><strong>FAFSA Simplification public documentation:</strong> studentaid.gov</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>
+    <strong style="color:white">Steve Lozano</strong> &nbsp;·&nbsp;
+    <a href="https://github.com/GitSteveLozano">github.com/GitSteveLozano</a> &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/stevelr">linkedin.com/in/stevelr</a>
+  </p>
+  <p style="margin-top: 8px; color: var(--muted);">Built April 2026 · USDS Technical PM application · <a href="index.html">View slides →</a></p>
+</footer>
+
+</body>
+</html>

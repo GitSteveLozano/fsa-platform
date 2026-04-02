@@ -81,7 +81,7 @@
 
 /* ─── TYPOGRAPHY ──────────────────────────────────────────── */
 .eyebrow {
-  font-size: 0.38em;
+  font-size: 0.5em;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -101,12 +101,12 @@
 }
 
 .slide-title {
-  font-size: 0.75em;
+  font-size: 0.95em;
   font-weight: 800;
   line-height: 1.2;
   color: var(--white);
   letter-spacing: -0.02em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.2em;
   max-width: 96%;
 }
 .slide-title .hl { color: var(--accent); }
@@ -119,8 +119,8 @@
   gap: 0.3em;
 }
 
-.reveal p  { font-size: 0.42em; color: var(--txt); line-height: 1.55; margin: 0; }
-.reveal li { font-size: 0.42em; color: var(--txt); line-height: 1.55; margin-bottom: 0.12em; }
+.reveal p  { font-size: 0.52em; color: var(--txt); line-height: 1.55; margin: 0; }
+.reveal li { font-size: 0.52em; color: var(--txt); line-height: 1.55; margin-bottom: 0.1em; }
 .reveal ul { padding-left: 1.1em; }
 .reveal strong { color: var(--white); }
 
@@ -135,27 +135,27 @@
   background: var(--card);
   border: 1px solid var(--bord);
   border-radius: 0.18em;
-  padding: 0.35em 0.45em;
+  padding: 0.38em 0.5em;
 }
 .card .card-label {
-  font-size: 0.32em;
+  font-size: 0.42em;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.15em;
+  margin-bottom: 0.12em;
   display: flex;
   align-items: center;
   gap: 0.3em;
 }
 .card h4 {
-  font-size: 0.42em;
+  font-size: 0.52em;
   font-weight: 700;
   color: var(--white);
   margin-bottom: 0.12em;
   letter-spacing: -0.01em;
 }
-.card p  { font-size: 0.38em; }
-.card li { font-size: 0.38em; }
+.card p  { font-size: 0.48em; }
+.card li { font-size: 0.48em; }
 
 .card-red    { border-color: rgba(240,64,96,.25);  background: rgba(240,64,96,.06); }
 .card-amber  { border-color: rgba(245,165,36,.25); background: rgba(245,165,36,.06); }
@@ -165,15 +165,15 @@
 .card-green  { border-color: rgba(34,212,110,.25); background: rgba(34,212,110,.06); }
 
 /* ─── STAT BLOCKS ─────────────────────────────────────────── */
-.stat-row { display: flex; gap: 1em; align-items: center; }
+.stat-row { display: flex; gap: 1.2em; align-items: center; }
 .stat { text-align: center; }
 .stat .num {
-  font-size: 1.3em;
+  font-size: 1.6em;
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
 }
-.stat .sub { font-size: 0.35em; color: var(--muted); line-height: 1.4; margin-top: 0.12em; }
+.stat .sub { font-size: 0.42em; color: var(--muted); line-height: 1.4; margin-top: 0.12em; }
 
 /* ─── FLOW ────────────────────────────────────────────────── */
 .flow {
@@ -185,24 +185,24 @@
 .flow-node {
   flex: 1;
   text-align: center;
-  padding: 0.22em 0.1em;
+  padding: 0.25em 0.1em;
   border-radius: 0.16em;
-  font-size: 0.33em;
+  font-size: 0.42em;
   color: var(--txt);
   line-height: 1.35;
   border: 1px solid var(--bord);
   background: var(--card);
   min-width: 2em;
 }
-.flow-node .fn-icon { font-size: 1.3em; display: block; margin-bottom: 0.05em; }
-.flow-node .fn-sub  { font-size: 0.82em; color: var(--muted); }
+.flow-node .fn-icon { font-size: 1.2em; display: block; margin-bottom: 0.05em; }
+.flow-node .fn-sub  { font-size: 0.8em; color: var(--muted); }
 .flow-node.bad  { border-color: rgba(240,64,96,.4);  background: rgba(240,64,96,.08); }
 .flow-node.good { border-color: rgba(34,212,110,.4); background: rgba(34,212,110,.08); }
 .flow-node.pivot{ border-color: rgba(245,165,36,.4); background: rgba(245,165,36,.08); }
-.flow-arrow { flex-shrink:0; color:var(--muted); padding: 0 0.12em; font-size: 0.5em; }
+.flow-arrow { flex-shrink:0; color:var(--muted); padding: 0 0.12em; font-size: 0.6em; }
 
 /* ─── TABLE ───────────────────────────────────────────────── */
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.38em; }
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.46em; }
 .reveal th {
   background: var(--surf);
   color: var(--muted);
@@ -230,7 +230,7 @@
   border-radius: 0 0.18em 0.18em 0;
   font-style: italic;
   color: var(--txt);
-  font-size: 0.4em;
+  font-size: 0.48em;
   line-height: 1.6;
 }
 .blockquote cite {
@@ -247,7 +247,7 @@
   display: inline-block;
   padding: 0.06em 0.22em;
   border-radius: 100px;
-  font-size: 0.32em;
+  font-size: 0.4em;
   font-weight: 600;
   background: var(--surf);
   color: var(--muted);
@@ -269,9 +269,9 @@
   border-radius: 0.18em;
   padding: 0.28em 0.38em;
 }
-.persona .avi { font-size: 0.65em; flex-shrink: 0; line-height: 1; }
-.persona .pname { font-size: 0.36em; font-weight: 700; color: var(--white); margin-bottom: 0.06em; }
-.persona .pjtbd { font-size: 0.32em; color: var(--muted); font-style: italic; line-height: 1.5; }
+.persona .avi { font-size: 0.75em; flex-shrink: 0; line-height: 1; }
+.persona .pname { font-size: 0.44em; font-weight: 700; color: var(--white); margin-bottom: 0.06em; }
+.persona .pjtbd { font-size: 0.4em; color: var(--muted); font-style: italic; line-height: 1.5; }
 
 /* ─── ROADMAP ─────────────────────────────────────────────── */
 .rmrow {
@@ -282,9 +282,9 @@
   border-bottom: 1px solid var(--bord2);
 }
 .rmrow:last-child { border-bottom: none; }
-.rmphase { min-width: 1.8em; font-size: 0.33em; font-weight: 700; color: var(--accent); padding-top: 0.05em; }
-.rmtitle { font-size: 0.4em; font-weight: 700; color: var(--white); margin-bottom: 0.05em; }
-.rmdesc  { font-size: 0.35em; color: var(--muted); line-height: 1.5; }
+.rmphase { min-width: 2em; font-size: 0.42em; font-weight: 700; color: var(--accent); padding-top: 0.05em; }
+.rmtitle { font-size: 0.5em; font-weight: 700; color: var(--white); margin-bottom: 0.05em; }
+.rmdesc  { font-size: 0.44em; color: var(--muted); line-height: 1.5; }
 
 /* ─── BADGE ───────────────────────────────────────────────── */
 .badge {
@@ -295,9 +295,9 @@
   border: 1px solid var(--bord);
   border-radius: 100px;
   padding: 0.12em 0.32em;
-  font-size: 0.36em;
+  font-size: 0.44em;
   color: var(--muted);
-  margin-bottom: 0.3em;
+  margin-bottom: 0.28em;
 }
 
 /* ─── COVER SPECIFIC ──────────────────────────────────────── */
@@ -312,12 +312,12 @@
   position: relative;
 }
 .cover-wrap .cover-title {
-  font-size: 1.0em;
+  font-size: 1.2em;
   font-weight: 900;
   line-height: 1.15;
   color: var(--white);
   letter-spacing: -0.025em;
-  max-width: 14em;
+  max-width: 12em;
   margin-bottom: 0.25em;
 }
 .cover-bg {
@@ -340,7 +340,7 @@
   border-radius: 0.18em;
   padding: 0.32em;
   font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.34em;
+  font-size: 0.42em;
   line-height: 1.55;
   color: #7c8fbc;
   overflow: auto;
